@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+        function apartado1() { //Esta función, mostrará una alerta que ponga 'Hola mundo'
+            alert('Hola mundo');
+        }
+
+        function apartado2() {
+            let mensaje;
+            let ciudad = prompt("¿En qué ciudad naciste?");
+
+            if (ciudad == null || ciudad == "") { //comprobamos que haya introducido una respuesta valida
+                mensaje = "No has introducido ninguna ciudad";
+            } else {
+                mensaje = "¡" + ciudad + ", yo también naci ahi!";
+            }
+
+            /*a continuacion se muestra un un mensaje en una alerta*/
+            alert(mensaje);
+        }
+
+    </script>
+</head>
+
+
+<body>
+    <h1>Ejercicios del tema 1</h1>
+
+
+    <p>3. Modifica los ejercicios previos incluyendo comentarios (de ambos tipos) en todos ellos. (Hecho)</p>
+
+    <button type="button" onclick="apartado1()">1. Ejercicio 1</button><br /><br />
+
+    <button type="button" onclick="apartado2()">2. Ejercicio 2</button><br /><br />
+</body>
+
+</html>

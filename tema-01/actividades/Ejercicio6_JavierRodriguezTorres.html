@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+        function apartado6() {
+            let velocidad, mensajeApartado6;
+
+            velocidad = prompt("Introduzca una velocidad en km/h");
+
+            if (velocidad != null && velocidad != "" && !isNaN(velocidad)) {
+                // Convertimos la entrada a un número (parseFloat para soportar decimales)
+                mensajeApartado6 = "Equivale a " + (parseFloat(velocidad) * 1000 / 3600) + " m/s";
+            } else {
+                mensajeApartado6 = "Has introducido un valor no válido";
+            }
+
+            alert(mensajeApartado6);
+
+
+        }
+
+
+    </script>
+</head>
+
+
+<body>
+    <h1>Ejercicios del tema 1</h1>
+
+    <p>6. Crea un archivo web que solicite una velocidad expresada en km/h y a continuación, se muestre el valor en m/s.</p>
+
+
+    <button type="button" onclick="apartado6()">Clica convertir km/h a m/s</button><br /><br />
+</body>
+
+</html>

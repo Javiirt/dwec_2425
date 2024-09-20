@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+
+
+        function apartado5() { 
+
+            let numero1, numero2, mensajeApartado5;
+
+            numero1 = parseFloat(prompt("Introduzca un número"));
+            numero2 = parseFloat(prompt("Introduzca otro número"));
+
+            // Verificamos si ambos valores son números válidos
+            if (!isNaN(numero1) && !isNaN(numero2)) {
+                mensajeApartado5 = "La suma es " + (numero1 + numero2);
+            } else {
+                mensajeApartado5 = "Has introducido un valor no válido";
+            }
+
+            alert(mensajeApartado5);
+
+        }
+
+    </script>
+</head>
+
+
+<body>
+    <h1>Ejercicios del tema 1</h1>
+
+    <p>5. Crea un archivo web que solicite 2 números, y a continuación, muestre el resultado de su suma.</p>
+
+
+
+    <button type="button" onclick="apartado5()">Clica para sumar</button><br /><br />
+</body>
+
+</html>

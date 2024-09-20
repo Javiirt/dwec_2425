@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+
+        //Tenemos una constante y una variable
+        var variableApartado4 = 1;
+        const constanteApartado4 = 1;
+
+        function apartado4(tipo) {
+
+            let mensajeApartado4;
+
+            if (tipo == 'constante') {//Según el boton clicado llega un valor u otro
+                mensajeApartado4 = "Su valor inicial era " + constanteApartado4;
+            } else {
+                mensajeApartado4 = "Su valor actual es " + (++variableApartado4);
+            }
+
+            alert(mensajeApartado4);
+        }
+
+
+
+    </script>
+</head>
+
+
+<body>
+    <h1>Ejercicios del tema 1</h1>
+
+    <p>4. Crea un archivo web que pregunte al usuario una pregunta (Ej: ¿Número de hijos? , y a continuación muestre un mensaje con la respuesta recibida.</p>
+
+    <button type="button" onclick="apartado4('constante')"> Si clicas aqui veras el valor inicial de la variable de
+        este apartado</button> <br /><br />
+
+    <button type="button" onclick="apartado4('variable')"> Cada vez que cliques aquí aumentara el valor de la
+        variable</button>
+
+</body>
+
+</html>
