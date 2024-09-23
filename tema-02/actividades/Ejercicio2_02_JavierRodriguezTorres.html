@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+/*
+2 Crea una web que solicite un número, a continuación deberá mostrarse un 
+mensaje diciendo si el número introducido es par o es impar.
+*/ 
+
+        function apartado2() {
+            let numero,  mensaje;
+
+            numero = parseFloat(prompt("Introduzca un número"));
+
+            // Verificamos si ambos valores son válidos
+            if (!isNaN(numero)) {
+                if(numero%2==0){
+                    mensaje= numero+" es par.";
+                }else{
+                    mensaje= numero+" es impar.";
+                }
+                
+            } else {
+                mensaje = "Has introducido un valor no válido";
+            }
+
+            alert(mensaje);
+        }
+
+    </script>
+</head>
+
+
+<body onload="apartado2();">
+    <h1>Ejercicios del tema 2</h1>
+
+    <p>2 Crea una web que solicite un número, a continuación deberá mostrarse un mensaje diciendo si el número introducido es par o es impar.</p>
+
+    
+</body>
+
+</html>

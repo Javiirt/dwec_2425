@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+        /*
+        6 Crea una web que solicite los coeficientes de una ecuación de segundo grado 
+        (ax2 +bx + c = 0) y realice los cálculos necesarios para mostrar los resultados. 
+        (Comprobad que para los siguientes coeficientes a=1, b= - 5 , y c= 6 los resultados deben ser x1= 3 y x2= 2 )
+        */
+        function apartado6() {
+            let a, b, c, soluciona, solucionb, mensaje;
+
+            a = parseFloat(prompt("Introduzca el valor de a en (ax2 +bx + c = 0)"));
+
+            b = parseFloat(prompt("Introduzca el valor de b en (ax2 +bx + c = 0)"));
+
+            c = parseFloat(prompt("Introduzca el valor de c en (ax2 +bx + c = 0)"));
+
+
+
+            if (!isNaN(a) && !isNaN(b) && !isNaN(c)) {
+
+
+                soluciona = (-b + Math.sqrt(b * b - 4 * a * c)) / 2 * a;
+                solucionb = (-b - Math.sqrt(b * b - 4 * a * c)) / 2 * a;
+
+                if (soluciona >= 0 && solucionb >= 0) {
+                    mensaje = "Las soluciones son " + soluciona + " y " + solucionb;
+                } else if (soluciona < 0 && solucionb >= 0) {
+                    mensaje = "La solucion es " + solucionb;
+                } else if (solucionb < 0 && solucionc >= 0) {
+                    mensaje = "La solucion es " + soluciona;
+                } else {
+                    mensaje = "No hay soluciones reales";
+                }
+
+            } else {
+                mensaje = "Has introducido un valor no válido"
+            }
+
+
+
+            alert(mensaje);
+        }
+
+
+    </script>
+</head>
+
+
+<body onload="apartado6();">
+    <h1>Ejercicios del tema 2</h1>
+
+    <p>6 Crea una web que solicite los coeficientes de una ecuación de segundo grado <br>
+        (ax2 +bx + c = 0) y realice los cálculos necesarios para mostrar los resultados. <br>
+        (Comprobad que para los siguientes coeficientes a=1, b= - 5 , y c= 6 los resultados deben ser x1= 3 y x2= 2 )
+    </p>
+
+
+</body>
+
+</html>

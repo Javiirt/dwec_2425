@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        /*
+        1 Crea una web que solicite dos números y diga cuál es el mayor de ellos. 
+        */
+        function apartado1() {
+            let numero1, numero2, mensaje;
+
+            numero1 = parseFloat(prompt("Introduzca un número"));
+            numero2 = parseFloat(prompt("Introduzca otro número"));
+
+            // Verificamos si ambos valores son válidos
+            if (!isNaN(numero1) && !isNaN(numero2)) {
+                if(numero1>numero2){
+                    mensaje = "El mayor es el "+numero1;
+                }else if(numero2>numero1){
+                    mensaje = "El mayor es el "+numero2;
+                }else{
+                    mensaje = "Ambos números son iguales";
+                }
+                
+            } else {
+                mensaje = "Has introducido un valor no válido";
+            }
+
+            alert(mensaje);
+        }
+    </script>
+</head>
+
+
+<body onload="apartado1();">
+    <h1>Ejercicios del tema 2</h1>
+
+    <p>1 Crea una web que solicite dos números y diga cuál es el mayor de ellos.</p>
+
+</body>
+
+</html>

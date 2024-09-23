@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        /*
+        3 Crea una web que solicite tres números y si dichos números son todos menores a 100 y mayores que 10, muestre un mensaje de “Ok”, en caso contrario que muestre “No cumple” .
+        */
+        
+
+        function apartado3() {
+            let numeros = [],  mensaje, resultado;
+
+            for(var i=0; i<3; i++ ){
+                numeros[i] = parseFloat(prompt("Introduzca un número"));
+            }
+
+            resultado = true;
+
+            for (x of numeros) {
+                if(isNaN(x) || x<=10 || x>=100){
+                    resultado=false;
+                }
+            }
+            
+
+            if(resultado){
+                mensaje = "OK";
+            }else{
+                mensaje = "No cumple";
+            }
+
+            alert(mensaje);
+        }
+
+    </script>
+</head>
+
+
+<body  onload="apartado3();">
+    <h1>Ejercicios del tema 2</h1>
+
+    <p> 3 Crea una web que solicite tres números y si dichos números son todos menores a 100 y mayores que 10, muestre  un mensaje de “Ok”, en caso contrario que muestre “No cumple” .    </p>
+
+</body>
+
+</html>

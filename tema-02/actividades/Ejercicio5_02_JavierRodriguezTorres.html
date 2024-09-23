@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+        /*
+        5 Crea una web que solicite tres números y los muestre de menor a mayor.
+        */
+
+        function apartado5() {
+            let numeros = [], mensaje, resultado, mayor, medio, menor;
+
+            for (var i = 0; i < 3; i++) {
+                numeros[i] = parseFloat(prompt("Introduzca un número"));
+            }
+
+            if (!isNaN(numeros[0]) && !isNaN(numeros[1]) && !isNaN(numeros[2])) {
+
+
+
+
+                if (numeros[0] >= numeros[1] && numeros[0] >= numeros[2]) {
+                    mayor = numeros[0];
+                    if (numeros[1] >= numeros[2]) {
+                        medio = numeros[1];
+                        menor = numeros[2];
+                    } else {
+                        medio = numeros[2];
+                        menor = numeros[1];
+                    }
+                } else if (numeros[1] >= numeros[0] && numeros[1] >= numeros[2]) {
+                    mayor = numeros[1];
+                    if (numeros[0] >= numeros[2]) {
+                        medio = numeros[0];
+                        menor = numeros[2];
+                    } else {
+                        medio = numeros[2];
+                        menor = numeros[0];
+                    }
+                } else {
+                    mayor = numeros[2];
+                    if (numeros[0] >= numeros[1]) {
+                        medio = numeros[0];
+                        menor = numeros[1];
+                    } else {
+                        medio = numeros[1];
+                        menor = numeros[0];
+                    }
+                }
+                mensaje = menor + "<" + medio + "<" + mayor
+            } else {
+                mensaje = "Has introducido un valor no válido"
+            }
+
+
+
+            alert(mensaje);
+        }
+
+
+    </script>
+</head>
+
+
+<body onload="apartado5();">
+    <h1>Ejercicios del tema 2</h1>
+
+    <p>5 Crea una web que solicite tres números y los muestre de menor a mayor.</p>
+
+</body>
+
+</html>

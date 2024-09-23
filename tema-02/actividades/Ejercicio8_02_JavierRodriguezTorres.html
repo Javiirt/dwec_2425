@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+/*
+8 Crea una web que calcule la descomposición en factores primos de un 
+número solicitado al inicio. Es decir: de 18 responderá (2 * 3 * 3 ).
+*/
+        function apartado8() {
+
+            let numero, mensaje;
+
+            numero = parseFloat(prompt("Introduzca un número para descomponerlo"));
+
+            if(!isNaN(numero) && numero>1){
+
+                mensaje = "La descomposición de "+numero+" es ";
+
+
+            }else{
+                mensaje = "Has introducido un valor no válido";
+            }
+
+            
+            alert(mensaje);
+        }
+
+
+    </script>
+</head>
+
+
+<body onload="apartado8();">
+    <h1>Ejercicios del tema 2</h1>
+
+    <p>8 Crea una web que calcule la descomposición en factores primos de un <br>
+        número solicitado al inicio. Es decir: de 18 responderá (2 * 3 * 3 ).</p>
+
+</body>
+
+</html>

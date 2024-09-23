@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        /*
+        4 En una gestoría te solicitan que crees una web para calcular las primas de las nóminas, estas funcionan según las siguientes reglas: 
+
+            Si el empleado/a tiene un sueldo inferior a 750 € y su antigüedad es mayor o igual a 10 años, obtendrá una prima del 10% de su sueldo. 
+
+            Si el empleado/a tiene sueldo superior o igual a 750 € y su antigüedad es mayor o igual a 10 años, obtendrá una prima del 5% de su sueldo.
+
+            Si su antigüedad es menor a 10 años, no obtendrá ninguna prima. 
+
+            Tras realizar la prima mensual, se deberá mostrar un mensaje con el valor final (sueldo + prima). Para adquirir sueldo y antigüedad, pregúntalo al usuario/a.
+
+        */
+
+        function apartado4() {
+            let sueldo,  antiguedad, prima;
+
+
+            sueldo = parseFloat(prompt("Introduzca el sueldo"));
+            antiguedad = parseFloat(prompt("Introduzca la antigüedad"));
+
+            if(isNaN(sueldo) || isNaN(antiguedad)){
+                mensaje = "Has introducido un valor no válido";            
+            }else{
+                if(sueldo<750 && antiguedad>=10){
+                    prima = 10;
+                }else if(sueldo>=750 && antiguedad>=10){
+                    prima= 5;
+                }else if(antiguedad<10){
+                    prima = 0;
+                }
+
+
+                mensaje = "Prima mensual: "+(sueldo+(sueldo*prima/100));
+            }
+
+
+            alert(mensaje);
+        }
+
+
+
+
+    </script>
+</head>
+
+
+<body onload="apartado4();">
+    <h1>Ejercicios del tema 2</h1>
+
+    <p>4.  En una gestoría te solicitan que crees una web para calcular las primas de las nóminas, estas funcionan según las siguientes reglas: <br>
+
+        Si el empleado/a tiene un sueldo inferior a 750 € y su antigüedad es mayor o igual a 10 años, obtendrá una prima del 10% de su sueldo. <br>
+
+        Si el empleado/a tiene sueldo superior o igual a 750 € y su antigüedad es mayor o igual a 10 años, obtendrá una prima del 5% de su sueldo.<br>
+
+        Si su antigüedad es menor a 10 años, no obtendrá ninguna prima. <br>
+
+        Tras realizar la prima mensual, se deberá mostrar un mensaje con el valor final (sueldo + prima). Para adquirir sueldo y antigüedad, pregúntalo al usuario/a.</p>
+
+
+</body>
+
+</html>
