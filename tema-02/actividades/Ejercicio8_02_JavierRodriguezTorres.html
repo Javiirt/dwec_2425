@@ -9,20 +9,37 @@ número solicitado al inicio. Es decir: de 18 responderá (2 * 3 * 3 ).
 */
         function apartado8() {
 
-            let numero, mensaje;
+            let numero, divisor, mensaje;
 
-            numero = parseFloat(prompt("Introduzca un número para descomponerlo"));
+            //Pedimos un número
+            numero = parseInt(prompt("Introduzca un número para descomponerlo"));
 
+
+            //Comprobamos que se válido
             if(!isNaN(numero) && numero>1){
 
                 mensaje = "La descomposición de "+numero+" es ";
-
+                //Definimos el divisor que irá incremntndo si es necesario
+                divisor = 2;
+                while(numero >1){
+                    if(numero%divisor == 0 ){ //Si es divisible, significa que es un numero que lo descompone
+                        numero/=divisor;
+                        
+                        if(numero >1){ //Comprobamos si hay más divisores para añadir el signo de multiplicación al mensaje 
+                            mensaje += divisor+ " * ";
+                        }else{
+                            mensaje += divisor;
+                        }
+                    }else{//Si el divisor no es divisible y el número es mayor que 1, aumentamos el divisor
+                        divisor++;
+                    }
+                }
 
             }else{
                 mensaje = "Has introducido un valor no válido";
             }
 
-            
+            //Mostramos el resultado en una alerta
             alert(mensaje);
         }
 

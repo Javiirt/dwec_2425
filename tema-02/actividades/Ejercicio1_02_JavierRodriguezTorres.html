@@ -14,6 +14,8 @@
 
             // Verificamos si ambos valores son válidos
             if (!isNaN(numero1) && !isNaN(numero2)) {
+
+                //Comprobamos qué numero es mayor
                 if(numero1>numero2){
                     mensaje = "El mayor es el "+numero1;
                 }else if(numero2>numero1){
@@ -26,6 +28,7 @@
                 mensaje = "Has introducido un valor no válido";
             }
 
+            //Mostramos el resultado en una alerta
             alert(mensaje);
         }
     </script>

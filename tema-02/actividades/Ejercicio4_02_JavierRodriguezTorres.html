@@ -23,9 +23,12 @@
             sueldo = parseFloat(prompt("Introduzca el sueldo"));
             antiguedad = parseFloat(prompt("Introduzca la antigüedad"));
 
+            //Comprobamos que los valores sean válidos
             if(isNaN(sueldo) || isNaN(antiguedad)){
                 mensaje = "Has introducido un valor no válido";            
             }else{
+
+                //Calcularemos la prima
                 if(sueldo<750 && antiguedad>=10){
                     prima = 10;
                 }else if(sueldo>=750 && antiguedad>=10){
@@ -35,10 +38,12 @@
                 }
 
 
-                mensaje = "Prima mensual: "+(sueldo+(sueldo*prima/100));
+                //Calculamos el valor final
+                mensaje = "Valor final: "+(sueldo+(sueldo*prima/100)) + "€";
             }
 
 
+            //Mostramos el resultado en una alerta
             alert(mensaje);
         }
 

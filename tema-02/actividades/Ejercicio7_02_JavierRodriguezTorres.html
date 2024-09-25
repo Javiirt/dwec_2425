@@ -12,38 +12,32 @@
         */
 
         function apartado7() {
-            let a, b, c, soluciona, solucionb, mensaje;
-
-            a = parseFloat(prompt("Introduzca el valor de a en (ax2 +bx + c = 0)"));
-
-            b = parseFloat(prompt("Introduzca el valor de b en (ax2 +bx + c = 0)"));
-
-            c = parseFloat(prompt("Introduzca el valor de c en (ax2 +bx + c = 0)"));
+            let numero, factorial, mensaje;
 
 
+            //Pedimos un numeros
+            numero = parseInt(prompt("Introduzca un número para ver su factorial"));
 
-            if (!isNaN(a) && !isNaN(b) && !isNaN(c)) {
 
+            //Comprobamos que sea válido
+            if (!isNaN(numero) && numero>=0) {
 
-                soluciona = (-b + Math.sqrt(b * b - 4 * a * c)) / 2 * a;
-                solucionb = (-b - Math.sqrt(b * b - 4 * a * c)) / 2 * a;
+                factorial = 1;
 
-                if (soluciona >= 0 && solucionb >= 0) {
-                    mensaje = "Las soluciones son " + soluciona + " y " + solucionb;
-                } else if (soluciona < 0 && solucionb >= 0) {
-                    mensaje = "La solucion es " + solucionb;
-                } else if (solucionb < 0 && solucionc >= 0) {
-                    mensaje = "La solucion es " + soluciona;
-                } else {
-                    mensaje = "No hay soluciones reales";
+                //Calculamos su factorial
+                for(var i = 1; i<=numero; i++){
+                    factorial *= i;
                 }
 
+                mensaje = "El factorial de "+numero+" es "+factorial;
+
             } else {
-                mensaje = "Has introducido un valor no válido"
+                mensaje = "Has introducido un valor no válido";
             }
 
 
 
+            //Mostramos el resultado en una alerta
             alert(mensaje);
         }
 
@@ -52,7 +46,7 @@
 </head>
 
 
-<body onload="apartado6();">
+<body onload="apartado7();">
     <h1>Ejercicios del tema 2</h1>
 
     <p>7 Crea una web que reciba un número y calcule el factorial de ese número. <br>

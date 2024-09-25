@@ -11,9 +11,9 @@ mensaje diciendo si el número introducido es par o es impar.
         function apartado2() {
             let numero,  mensaje;
 
-            numero = parseFloat(prompt("Introduzca un número"));
+            numero = parseInt(prompt("Introduzca un número"));
 
-            // Verificamos si ambos valores son válidos
+            // Verificamos si el valor es válido
             if (!isNaN(numero)) {
                 if(numero%2==0){
                     mensaje= numero+" es par.";
@@ -25,6 +25,7 @@ mensaje diciendo si el número introducido es par o es impar.
                 mensaje = "Has introducido un valor no válido";
             }
 
+            //Mostramos el resultado en una alerta
             alert(mensaje);
         }
 

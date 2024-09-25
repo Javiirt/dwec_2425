@@ -11,12 +11,14 @@
         function apartado3() {
             let numeros = [],  mensaje, resultado;
 
+            //Pedimos 3 números
             for(var i=0; i<3; i++ ){
                 numeros[i] = parseFloat(prompt("Introduzca un número"));
             }
 
             resultado = true;
 
+            //Comprobamos que sean menor que 100 y mayor que 10
             for (x of numeros) {
                 if(isNaN(x) || x<=10 || x>=100){
                     resultado=false;
@@ -30,6 +32,7 @@
                 mensaje = "No cumple";
             }
 
+            //Mostramos el resultado en una alerta
             alert(mensaje);
         }
 

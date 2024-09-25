@@ -12,6 +12,7 @@
         function apartado6() {
             let a, b, c, soluciona, solucionb, mensaje;
 
+            //Pedimos los 3 valores de la ecuación
             a = parseFloat(prompt("Introduzca el valor de a en (ax2 +bx + c = 0)"));
 
             b = parseFloat(prompt("Introduzca el valor de b en (ax2 +bx + c = 0)"));
@@ -20,12 +21,15 @@
 
 
 
+            //Comprobamos que los números sean válidos
             if (!isNaN(a) && !isNaN(b) && !isNaN(c)) {
 
 
+                //Calculamos las posibles soluciones
                 soluciona = (-b + Math.sqrt(b * b - 4 * a * c)) / 2 * a;
                 solucionb = (-b - Math.sqrt(b * b - 4 * a * c)) / 2 * a;
 
+                //Comprobamos qué soluciones son válidas
                 if (soluciona >= 0 && solucionb >= 0) {
                     mensaje = "Las soluciones son " + soluciona + " y " + solucionb;
                 } else if (soluciona < 0 && solucionb >= 0) {
@@ -42,6 +46,7 @@
 
 
 
+            //Mostramos el resultado en una alerta
             alert(mensaje);
         }
 
