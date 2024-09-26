@@ -26,15 +26,15 @@
 
 
                 //Calculamos las posibles soluciones
-                soluciona = (-b + Math.sqrt(b * b - 4 * a * c)) / 2 * a;
-                solucionb = (-b - Math.sqrt(b * b - 4 * a * c)) / 2 * a;
+                soluciona = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+                solucionb = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
 
                 //Comprobamos qué soluciones son válidas
-                if (soluciona >= 0 && solucionb >= 0) {
+                if (soluciona >= 0 && solucionb >= 0 && a!=0) {
                     mensaje = "Las soluciones son " + soluciona + " y " + solucionb;
-                } else if (soluciona < 0 && solucionb >= 0) {
+                } else if (soluciona < 0 && solucionb >= 0 && a!=0) {
                     mensaje = "La solucion es " + solucionb;
-                } else if (solucionb < 0 && solucionc >= 0) {
+                } else if (solucionb < 0 && solucionc >= 0 && a!=0) {
                     mensaje = "La solucion es " + soluciona;
                 } else {
                     mensaje = "No hay soluciones reales";

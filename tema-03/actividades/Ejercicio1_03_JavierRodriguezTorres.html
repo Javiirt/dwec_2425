@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        
+        //definir variables con un closure
+
+
+        function menu(){
+            a = parseInt(prompt("Elige una opcion: \n1. Elija entre cubo, esfera o cilindro. \n2. Introduzca los valores de las variables.\n3. Calculo del volumen.\n4. Calculo del area.\n5. Finalizar"));
+            return a;
+        }
+
+        function setForma(){
+
+        }
+
+        function setValores(){
+            
+        }
+
+        function getVolumen(){
+            
+        }
+
+        function getArea(){
+            
+        }
+
+
+
+        do{
+            respuesta = menu();
+
+            switch(respuesta){
+                case 1:
+                    setForma();
+                    break;
+                case 2:
+                    setValores();
+                    break;
+                case 3:
+                    getVolumen();
+                    break;
+                case 4:
+                    getArea();
+                    break;
+                default:
+                    break;
+                    
+            }
+
+            
+
+        }while(respuesta!=5);
+
+        </script>
+
+        
+</head>
+<body>
+</body>
+</html>
