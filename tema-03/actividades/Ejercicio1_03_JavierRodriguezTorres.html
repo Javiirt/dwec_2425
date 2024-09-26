@@ -1,63 +1,120 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <script>
-        
-        //definir variables con un closure
 
-
-        function menu(){
-            a = parseInt(prompt("Elige una opcion: \n1. Elija entre cubo, esfera o cilindro. \n2. Introduzca los valores de las variables.\n3. Calculo del volumen.\n4. Calculo del area.\n5. Finalizar"));
-            return a;
-        }
-
-        function setForma(){
-
-        }
-
-        function setValores(){
-            
-        }
-
-        function getVolumen(){
-            
-        }
-
-        function getArea(){
-            
+        function setForma() { //Pedimos que introduzca una forma
+            let forma = parseInt(prompt("Elige entre: \n1. Cubo\n2. Esfera\n3. Cilindro."));
+            return forma;
         }
 
 
+        function setValores(forma) { //Según la forma introducida, pedimos unos valores u otros
+            let valores = [];
 
-        do{
-            respuesta = menu();
-
-            switch(respuesta){
+            switch (forma) {
                 case 1:
-                    setForma();
+                    valores[0] = parseFloat(prompt("Introduzca la altura del cubo."));
                     break;
                 case 2:
-                    setValores();
+                    valores[1] = parseFloat(prompt("Introduzca el radio de la esfera."));
                     break;
                 case 3:
-                    getVolumen();
-                    break;
-                case 4:
-                    getArea();
+                    valores[0] = parseFloat(prompt("Introduzca la altura del cilindro."));
+                    valores[1] = parseFloat(prompt("Introduzca el radio del cilindro."));
                     break;
                 default:
+                    alert("Primeros debes seleccionar una figura.");
                     break;
-                    
             }
 
-            
+            return valores; //Devolvemos los valores en forma de array
+        }
 
-        }while(respuesta!=5);
+        function getVolumen(forma, altura, radio) {
+            switch (forma) {//Según el tipo de figura, calculamos el volumen de forma diferente
+                case 1:
+                    alert("El volumen de cubo es de "+(altura*altura*altura)+" cm^3");
+                    break;
 
-        </script>
+                case 2:
+                    alert("El volumen de la esfera es de "+((4/3)*Math.PI*radio*radio*radio)+" cm^3");
+                    break;
 
-        
+                case 3:
+                    alert("El volumen del cilindro es de "+(Math.PI*radio*radio*altura)+" cm^3");
+                    break;
+
+                default:
+                    alert("Primeros debes introducir todos los valores.");
+                    break;
+            }
+        }
+
+        function getArea(forma, altura, radio) {
+            switch (forma) {//Según el tipo de figura, calculamos el área de forma diferente
+                case 1:
+                    alert("El área de cubo es de "+(6*altura*altura)+" cm^2");
+                    break;
+
+                case 2:
+                    alert("El área de la esfera es de "+(4*Math.PI*radio*radio)+" cm^2");
+                    break;
+
+                case 3:
+                    alert("El área del cilindro es de "+((2*Math.PI*radio*altura)+(2*Math.PI*radio*radio))+" cm^2");
+                    break;
+
+                default:
+                    alert("Primeros debes introducir todos los valores.");
+                    break;
+            }
+        }
+
+
+        (function menu() { //Accedemos a la función menú 
+            let respuesta, forma, altura, radio;
+
+            do {//Pedimos que seleccione una opción hasta que elija salir
+                respuesta = parseInt(prompt("Elige una opcion: \n1. Elija entre cubo, esfera o cilindro. \n2. Introduzca los valores de las variables.\n3. Calculo del volumen.\n4. Calculo del area.\n5. Finalizar"));
+
+                switch (respuesta) {
+                    case 1://Llamamos a una funcion para pedir la forma de la figura
+                        forma = setForma();
+                        break;
+
+                    case 2://Llamamos a una función para pedir los valores de la figura
+                        let valores = [];
+                        valores = setValores(forma);
+                        altura = valores[0];
+                        radio = valores[1];
+                        break;
+
+                    case 3://Llamamos a una función para ver el volumen de la figura
+                        getVolumen(forma, altura, radio);
+                        break;
+
+                    case 4://Llamamos a una función para ver el área de la figura
+                        getArea(forma, altura, radio);
+                        break;
+
+                    default:
+                        break;
+
+                }
+
+
+            } while (respuesta != 5);//Cuando introduzca un 5 sale
+
+        })();
+
+    </script>
+
+
 </head>
+
 <body>
 </body>
+
 </html>
