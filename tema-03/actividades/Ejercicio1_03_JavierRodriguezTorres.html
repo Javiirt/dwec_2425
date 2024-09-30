@@ -36,7 +36,7 @@
             switch (forma) {//Según el tipo de figura, calculamos el volumen de forma diferente
                 case 1:
                     if (altura > 0) {
-                        alert("El volumen de cubo es de " + (altura * altura * altura) + " cm^3");
+                        alert("El volumen de cubo es de " + (altura * altura * altura).toFixed(2) + " cm^3");
                     } else {
                         alert("Primeros debes introducir todos los valores.");
                     }
@@ -44,7 +44,7 @@
 
                 case 2:
                     if (radio > 0) {
-                        alert("El volumen de la esfera es de " + ((4 / 3) * Math.PI * radio * radio * radio) + " cm^3");
+                        alert("El volumen de la esfera es de " + ((4 / 3) * Math.PI * radio * radio * radio).toFixed(2) + " cm^3");
                     } else {
                         alert("Primeros debes introducir todos los valores.");
                     }
@@ -52,7 +52,7 @@
 
                 case 3:
                     if (altura > 0 && radio > 0) {
-                        alert("El volumen del cilindro es de " + (Math.PI * radio * radio * altura) + " cm^3");
+                        alert("El volumen del cilindro es de " + (Math.PI * radio * radio * altura).toFixed(2) + " cm^3");
                     } else {
                         alert("Primeros debes introducir todos los valores.");
                     }
@@ -68,7 +68,7 @@
             switch (forma) {//Según el tipo de figura, calculamos el área de forma diferente
                 case 1:
                     if (altura > 0) {
-                        alert("El área de cubo es de " + (6 * altura * altura) + " cm^2");
+                        alert("El área de cubo es de " + (6 * altura * altura).toFixed(2) + " cm^2");
                     } else {
                         alert("Primeros debes introducir todos los valores.");
                     }
@@ -76,7 +76,7 @@
 
                 case 2:
                     if (radio > 0) {
-                        alert("El área de la esfera es de " + (4 * Math.PI * radio * radio) + " cm^2");
+                        alert("El área de la esfera es de " + (4 * Math.PI * radio * radio).toFixed(2) + " cm^2");
                     } else {
                         alert("Primeros debes introducir todos los valores.");
                     }
@@ -85,7 +85,7 @@
 
                 case 3:
                     if (altura > 0 && radio > 0) {
-                        alert("El área del cilindro es de " + ((2 * Math.PI * radio * altura) + (2 * Math.PI * radio * radio)) + " cm^2");
+                        alert("El área del cilindro es de " + ((2 * Math.PI * radio * altura) + (2 * Math.PI * radio * radio)).toFixed(2) + " cm^2");
                     } else {
                         alert("Primeros debes introducir todos los valores.");
                     }
