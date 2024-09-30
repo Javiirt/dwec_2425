@@ -4,6 +4,38 @@
 <head>
     <script>
 
+        var getSetFigura = (function () {//Creamos closure para almacenar las variables
+            figura = [0, 0, 0]; //Almacenamos las 3 variables en un array, 
+            //0 -> figura
+            //1 -> altura
+            //2 -> radio
+
+            var fun = function (valoresEntrada) {
+
+                if (valoresEntrada == undefined) { 
+                    //Si recibe undefined, devolvemos el objeto actual
+                    return figura;
+
+
+                } else if ((valoresEntrada[0] >= 1 && valoresEntrada[0] <= 3) && valoresEntrada[1] == 0 && valoresEntrada[2] == 0) {
+                    /*Si solo recibe el primer valor, significa que ha introducido una nueva figura.
+                    Asignamos el valor de la nueva figura y reseteamos altura y radio */
+
+                    figura[0] = valoresEntrada[0];
+                    figura[1] = 0;
+                    figura[2] = 0;
+
+                } else if (valoresEntrada[0] == 0 && (valoresEntrada[1] != 0 || valoresEntrada[2] != 0)) {
+                    /*Si recibe la altura o el radio, le asignamos los nuevos valores*/
+                    figura[1] = valoresEntrada[1];
+                    figura[2] = valoresEntrada[2];
+                }
+
+            }
+            return fun;
+        })();
+
+
         function setForma() { //Pedimos que introduzca una forma
             let forma = parseInt(prompt("Elige entre: \n1. Cubo\n2. Esfera\n3. Cilindro."));
             return forma;
@@ -99,31 +131,33 @@
 
 
         (function menu() { //Accedemos a la función menú 
-            let respuesta, forma, altura, radio;
+            let respuesta;
 
             do {//Pedimos que seleccione una opción hasta que elija salir
                 respuesta = prompt("Elige una opcion: \n1. Elija entre cubo, esfera o cilindro. \n2. Introduzca los valores de las variables.\n3. Calculo del volumen.\n4. Calculo del area.\n5. Finalizar");
 
                 switch (respuesta) {
                     case "1"://Llamamos a una funcion para pedir la forma de la figura
-                        forma = setForma();
-                        radio = 0;
-                        altura = 0;
+                        let forma = setForma();
+                        let valoresCase1 = [forma, 0, 0];
+                        getSetFigura(valoresCase1);
                         break;
 
-                    case "2"://Llamamos a una función para pedir los valores de la figura
-                        let valores = [];
-                        valores = setValores(forma);
-                        altura = valores[0];
-                        radio = valores[1];
+                    case "2"://Llamamos a una función para pedir los valores de la figura  
+                        let valoresCase2 = getSetFigura();                      
+                        let valoresRecibidos = setValores(valoresCase2[0]);                        
+                        let valores2 = [0, valoresRecibidos[0], valoresRecibidos[1]];
+                        getSetFigura(valores2);
                         break;
 
                     case "3"://Llamamos a una función para ver el volumen de la figura
-                        getVolumen(forma, altura, radio);
+                        var figura = getSetFigura();
+                        getVolumen(figura[0], figura[1], figura[2]);
                         break;
 
                     case "4"://Llamamos a una función para ver el área de la figura
-                        getArea(forma, altura, radio);
+                        var figura = getSetFigura();
+                        getArea(figura[0], figura[1], figura[2]);
                         break;
 
                     default:
