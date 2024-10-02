@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+
+
+        (function menu() { //Accedemos a la función menú 
+            let contador = 0;
+            let valores = [];
+
+            do {//Pedimos que seleccione una opción hasta que elija salir
+                respuesta = prompt("Introduzca el valor " + contador + ". (F para finalizar)");
+
+                if (!isNaN(respuesta)) {//Añadimos el valor al array si es válido
+                    valores[contador] = respuesta;
+                    contador++;
+                } else if (respuesta != "F" && respuesta != "f") {
+                    alert("Debes introducir un valor válido");
+                }
+
+            } while (respuesta != "F" && respuesta != "f" && respuesta != null);//Cuando introduzca F sale
+
+
+            if (valores.length > 1) {
+                //Ordenamos los valores para trabajar con ellos
+                valoresOrdenados = ordenarNumeros(valores);
+
+                //Calculamos la media
+                calcularMedia(valores);
+
+                //Calculamos el rango
+                calcularRango(valores);
+
+                //Calculamos la moda
+                calcularModa(valores);
+            }else{
+                alert("Debes introducir mínimo 2 valores paraa calcular la media, rango y moda.");
+            }
+
+
+
+        })();
+
+    </script>
+
+
+</head>
+
+<body>
+</body>
+
+</html>
