@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+
+
+        function calcularParesImpares(valores) {//Función para ver pares e impares
+
+            //Definimos un array para los números pares y otro para los impares
+            let pares = [];
+            let impares = [];
+
+
+            for (let i = 0; i < valores.length; i++) {
+                for (let j = 0; j < valores[i].length; j++) {
+
+                    if(valores[i][j]%2 == 0){//Si es divisible entre 2, es par
+                        pares.push(valores[i][j]);
+                    }else{//Si no, es impar
+                        impares.push(valores[i][j]);
+                    }
+
+                }
+            }
+
+            //Mostramos ambos arrays
+            alert("Números pares: " + pares);
+            alert("Números impares: " + impares);
+        }
+
+
+        (function menu() { //Accedemos a la función menú 
+            let contador = 0;
+            let valores = [];
+            let respuesta;
+            let indice = 0;
+
+            do {//Pedimos que seleccione una opción hasta que elija salir
+
+                respuesta = prompt("Introduzca el valor " + (contador + 1) + ". (S para cambiar de fila o F para finalizar)");
+
+                if (!isNaN(respuesta) && respuesta != "" && respuesta != null) {//Añadimos el valor al array si es válido 
+                    if(valores[indice] == null){
+                        valores[indice] = new Array();
+                    }
+                    valores[indice].push(respuesta);
+                    contador++;
+
+                } else if (respuesta == "S" ||  respuesta == "s" ) {
+                    indice++;
+
+                }
+                 else if (respuesta != "F" && respuesta != "f" && respuesta != null) {
+                    alert("Debes introducir un valor válido");
+
+                }
+
+            } while (respuesta != "F" && respuesta != "f" && respuesta != null);//Cuando introduzca F sale
+
+
+            //Calculamos los pares e impares
+            calcularParesImpares(valores);
+
+
+
+        })();
+
+    </script>
+
+
+</head>
+
+<body>
+</body>
+
+</html>
