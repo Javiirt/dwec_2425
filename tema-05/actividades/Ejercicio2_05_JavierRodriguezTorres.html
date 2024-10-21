@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+        var getSetCesta = (function () {//Creamos closure para almacenar un array con los artículos y el contador del código
+            cesta = []; //Cesta de los artículos
+            contador = 1;
+
+            var fun = function (valorEntrada) {
+
+                if (valorEntrada == undefined) {
+                    //Si recibe undefined, devolvemos la cesta
+                    return cesta;
+
+                } else if (valorEntrada[0] == "eliminar") {
+                    //Si recibe "eliminar", eliminamos el artículo con ese código                    
+                    // let articuloEliminar = cesta.find(articulo => articulo.codigo == valorEntrada[1]);
+                    // if(articuloEliminar!=null){
+                    //     delete cesta[articuloEliminar];
+                    // }else{
+                    //     alert("No existe un artículo con ese código");
+                    // }
+                    cesta = cesta.filter(articulo => articulo.codigo != valorEntrada[1]);
+
+                } else if (valorEntrada[0] == "anadir") {
+                    //Si recibe "anadir", lo añadimos a la cesta
+                    valorEntrada[1]["codigo"] = contador++;
+                    cesta.push(valorEntrada[1]);
+
+                } else if (valorEntrada[0] == "vaciar") {
+                    //Si recibe "vaciar", vaciamos la cesta
+                    cesta = [];
+                }
+
+            }
+            return fun;
+        })();
+
+
+        function mostrarCesta() {//Función para mostrar la cesta de los artículos
+            let cesta = getSetCesta();
+            let cadena = "Cod   Nombre   Cantidad   Precio   Subtotal\n";
+            let total = 0;
+
+
+            for (articulo of cesta) {//Recorremos todos lo artículos de la cesta
+                cadena += " " + articulo.codigo + "            " + articulo.nombre + "                " + articulo.cantidad + "            " + articulo.precio + "           " + (articulo.cantidad * articulo.precio) + "€\n";
+                total += articulo.cantidad * articulo.precio;
+            }
+
+            //Calculamos el total y mostramos todos los datos
+            cadena += "              Total: " + total + "€";
+            alert(cadena);
+
+        }
+
+
+        function insertarArticulo() {//Función para insertar un artículo
+            let nombre, cantidad, precio;
+
+
+            //Pedimos los datos del artículo
+            nombre = prompt("Introduzca el nombre del artículo");
+            cantidad = parseInt(prompt("Introduzca la cantidad del artículo"));
+            precio = parseFloat(prompt("Introduzca el precio del artículo"));
+
+            //Creamos el objeto articulo
+            var articulo = {};
+            articulo.codigo = 0;
+            articulo.nombre = nombre;
+            articulo.cantidad = cantidad;
+            articulo.precio = precio;
+
+            //Llamamos a un método para añadir el artículo a la cesta
+            getSetCesta(["anadir", articulo]);
+        }
+
+
+        function vaciarCesta() {//Función para vaciar la cesta de artículos
+            getSetCesta(["vaciar"]);
+            alert("Cesta vaciada");
+        }
+
+        function borrarArticulo() {//Función para eliminar un artículo
+            let codigo;
+
+
+            //Pedimos los datos del artículo
+            codigo = parseInt(prompt("Introduzca el código del artículo"));
+
+            //Llamamos a un método para eliminar el artículo de la cesta
+            getSetCesta(["eliminar", codigo]);
+        }
+
+
+        (function menu() { //Accedemos a la función menú 
+            let respuesta;
+
+            do {//Pedimos que seleccione una opción hasta que elija salir
+                respuesta = prompt("Elige una opción: \n1. Ver cesta\n2. Insertar artículo\n3. Borrar artículo.\n4. Vaciar cesta\n5. Salir.");
+
+                switch (respuesta) {
+                    case "1"://Llamamos a una funcion para mostrar la cesta
+                        mostrarCesta();
+                        break;
+
+                    case "2"://Llamamos a una función para insertar un artículo
+                        insertarArticulo();
+                        break;
+
+                    case "3"://Llamamos a una función para borrar un artículo
+                        borrarArticulo();
+                        break;
+
+                    case "4"://Llamamos a una función para vaciar la cesta
+                        vaciarCesta();
+                        break;
+
+                    case "5"://Mostramos un mensaje de despedida
+                        alert("Adiós");
+                        break;
+
+                    case null:
+                        break;
+
+                    default://Si introduce un mensaje no válido muestra un mensaje
+                        alert("Introduzca un valor válido");
+                        break;
+
+                }
+
+
+            } while (respuesta != "5" && respuesta != null);//Cuando introduzca un 5 sale
+
+        })();
+
+    </script>
+
+
+</head>
+
+<body>
+</body>
+
+</html>
