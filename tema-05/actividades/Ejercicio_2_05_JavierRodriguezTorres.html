@@ -15,13 +15,7 @@
                     return cesta;
 
                 } else if (valorEntrada[0] == "eliminar") {
-                    //Si recibe "eliminar", eliminamos el artículo con ese código                    
-                    // let articuloEliminar = cesta.find(articulo => articulo.codigo == valorEntrada[1]);
-                    // if(articuloEliminar!=null){
-                    //     delete cesta[articuloEliminar];
-                    // }else{
-                    //     alert("No existe un artículo con ese código");
-                    // }
+                    //Si recibe "eliminar", eliminamos el artículo con ese código 
                     cesta = cesta.filter(articulo => articulo.codigo != valorEntrada[1]);
 
                 } else if (valorEntrada[0] == "anadir") {
@@ -46,7 +40,7 @@
 
 
             for (articulo of cesta) {//Recorremos todos lo artículos de la cesta
-                cadena += " " + articulo.codigo + "            " + articulo.nombre + "                " + articulo.cantidad + "            " + articulo.precio + "           " + (articulo.cantidad * articulo.precio) + "€\n";
+                cadena += " " + articulo.codigo + "            " + articulo.nombre + "                " + articulo.cantidad + "          " + articulo.precio + "           " + (articulo.cantidad * articulo.precio) + "€\n";
                 total += articulo.cantidad * articulo.precio;
             }
 
@@ -67,7 +61,7 @@
             precio = parseFloat(prompt("Introduzca el precio del artículo"));
 
             //Creamos el objeto articulo
-            var articulo = {};
+            let articulo = {};
             articulo.codigo = 0;
             articulo.nombre = nombre;
             articulo.cantidad = cantidad;
