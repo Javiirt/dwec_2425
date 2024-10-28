@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+        //Clase Empleado
+        class Empleado {
+            //Definicion de variables
+            nombre;
+            apellido;
+            #edad;
+
+            //Definición constructor
+            constructor(nombre, apellido, edad) {
+                this.nombre = nombre;
+                this.apellido = apellido;
+                this.#edad = edad;
+
+            }
+
+            //Método para mostrar variables
+            muestra() { return this.nombre + " " + this.apellido + " " + this.#edad + " años" };
+
+        }
+
+        //Clase que hereda de Empleado
+        class Profesor extends Empleado {
+            //Definicion de variables 
+            cargo;
+
+            //Definición construcutor
+            constructor(nombre, apellido, edad, cargo) {
+                super(nombre, apellido, edad);
+                this.cargo = cargo;
+            }
+
+            //Método para mostrar el cargo
+            muestraCargo() { return this.cargo };
+
+        }
+
+
+        //Creamos un objeto profesor y mostramos datos
+        var profesor = new Profesor("Javier", "Rodríguez", 22, "Informático");
+        alert(profesor.muestra() + " " + profesor.muestraCargo());
+
+
+    </script>
+
+
+</head>
+
+<body>
+</body>
+
+</html>
