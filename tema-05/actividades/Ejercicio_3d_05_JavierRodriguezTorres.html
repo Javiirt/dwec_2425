@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+
+
+
+        //Clase Articulo
+        class Articulo {
+            //Definicion de variables 
+            #codigo;
+            #nombre;
+            #precio;
+            #cantidad;
+
+            //Definición construcutor
+            constructor(codigo, nombre, precio, cantidad) {
+                this.#codigo = codigo;
+                this.#nombre = nombre;
+                this.#precio = precio;
+                this.#cantidad = cantidad;
+            }
+
+            //Métodos get para código
+            get getCodigo() { return this.#codigo };
+
+            //Método para mostrar el articulo
+            muestraArticulo() { return (" " + this.#codigo + "            " + this.#nombre + "                " + this.#cantidad + "          " + this.#precio + "           " + (this.#cantidad * this.#precio) + "€\n") };
+
+            muestraSubtotal() { return (this.#cantidad * this.#precio) };
+        }
+
+
+
+        //Clase Cesta
+        class Cesta {
+            //Definicion de variables 
+            static lista = [];
+            static contador = 1;
+
+            //Definición construcutor
+            constructor() {
+            }
+
+            //Método para mostrar la cesta de los artículos
+            static mostrarCesta() {
+                let cadena = "Cod   Nombre   Cantidad   Precio   Subtotal\n";
+                let total = 0;
+
+
+                for (let articulo of this.lista) {//Recorremos todos lo artículos de la cesta
+                    cadena += articulo.muestraArticulo();
+                    total += articulo.muestraSubtotal();
+                }
+
+                //Calculamos el total y mostramos todos los datos
+                cadena += "              Total: " + total + "€";
+                alert(cadena);
+
+            }
+
+            //Método para insertar un artículo
+            static insertarArticulo() {
+                let nombre, cantidad, precio;
+
+
+                //Pedimos los datos del artículo
+                nombre = prompt("Introduzca el nombre del artículo");
+                cantidad = parseInt(prompt("Introduzca la cantidad del artículo"));
+                precio = parseFloat(prompt("Introduzca el precio del artículo"));
+
+                //Creamos el objeto articulo
+                let articulo = new Articulo(this.contador++, nombre, cantidad, precio);
+
+                //Añadimos el artículo a la cesta
+                this.lista.push(articulo);
+            }
+
+            //Método para vaciar la cesta de artículos
+            static vaciarCesta() { this.lista = []; }
+
+
+            //Método para eliminar un artículo
+            static borrarArticulo() {
+                let codigo;
+
+                //Pedimos los datos del artículo
+                codigo = parseInt(prompt("Introduzca el código del artículo"));
+
+                //Eliminamos el artículo de la cesta
+                this.lista = this.lista.filter(articulo => articulo.getCodigo != codigo);
+            }
+
+
+            //Método que abre un menú
+            static menu() {
+                let respuesta;
+
+                do {//Pedimos que seleccione una opción hasta que elija salir
+                    respuesta = prompt("Elige una opción: \n1. Ver cesta\n2. Insertar artículo\n3. Borrar artículo.\n4. Vaciar cesta\n5. Salir.");
+
+                    switch (respuesta) {
+                        case "1"://Llamamos al método para mostrar la cesta
+                            this.mostrarCesta();
+                            break;
+
+                        case "2"://Llamamos al método para insertar un artículo
+                            this.insertarArticulo();
+                            break;
+
+                        case "3"://Llamamos al método para borrar un artículo
+                            this.borrarArticulo();
+                            break;
+
+                        case "4"://Llamamos al método para vaciar la cesta
+                            this.vaciarCesta();
+                            break;
+
+                        case "5"://Mostramos un mensaje de despedida
+                            alert("Adiós");
+                            break;
+
+                        case null:
+                            break;
+
+                        default://Si introduce un mensaje no válido muestra un mensaje
+                            alert("Introduzca un valor válido");
+                            break;
+
+                    }
+
+
+                } while (respuesta != "5" && respuesta != null);//Cuando introduzca un 5 sale
+
+            };
+
+        }
+
+
+        //Llamo al método estático menú
+        Cesta.menu();
+
+
+
+
+    </script>
+
+
+</head>
+
+<body>
+</body>
+
+</html>
