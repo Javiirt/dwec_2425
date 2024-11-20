@@ -27,20 +27,162 @@
         }
 
 
-        class Cesta{
-            #listaProductos = [];
+        class ContProductos {
+            #array_productos;
+            #cesta;
 
-            constructor(lista){
-                this.#listaProductos = lista;
+            constructor(array = []) {
+                this.#array_productos = productos;
+                this.#cesta = new Cesta(this.#array_productos);
+                this.renderizar();
             }
 
-            getListaProductos(){ return this.listaProductos}
-            addNewProducto(){this.listaProductos}
-            removeProducto(){this.listaProductos}
+            renderizar() {
+                let contenedor = window.document.getElementById("contProductos");
+
+                this.#array_productos.forEach((producto) => {
+                    // Crear la columna
+                    let col = document.createElement("div");
+                    col.classList.add("col");
+
+                    // Crear la tarjeta
+                    let card = document.createElement("div");
+                    card.classList.add("card", "h-100");
+
+                    // Imagen del producto
+                    let imagen = document.createElement("img");
+                    imagen.classList.add("card-img-top");
+                    imagen.src = producto.imagen;
+                    imagen.alt = producto.nombre;
+                    imagen.style.height = "200px";
+                    imagen.style.width = "100%";
+                    imagen.style.objectFit = "cover";
+
+                    // Cuerpo de la tarjeta
+                    let cardBody = document.createElement("div");
+                    cardBody.classList.add("card-body", "text-center");
+
+                    // Título del producto
+                    let titulo = document.createElement("h5");
+                    titulo.textContent = producto.nombre;
+
+                    // Precio del producto
+                    let precio = document.createElement("p");
+                    precio.classList.add("card-text");
+                    precio.textContent = producto.precio + '€';
+
+                    // Campo de cantidad
+                    let inputGroup = document.createElement("div");
+                    inputGroup.classList.add("input-group", "mb-3");
+
+                    let inputCantidad = document.createElement("input");
+                    inputCantidad.type = "number";
+                    inputCantidad.classList.add("form-control");
+                    inputCantidad.value = 1;
+                    inputCantidad.min = 1;
+
+                    inputGroup.appendChild(inputCantidad);
+
+                    // Botón de añadir
+                    let boton = document.createElement("button");
+                    boton.classList.add("btn", "btn-primary");
+                    boton.textContent = "Añadir";
+
+
+                    // Añadir elementos al cuerpo de la tarjeta
+                    cardBody.appendChild(titulo);
+                    cardBody.appendChild(precio);
+                    cardBody.appendChild(inputGroup);
+                    cardBody.appendChild(boton);
+
+                    // Añadir imagen y cuerpo a la tarjeta
+                    card.appendChild(imagen);
+                    card.appendChild(cardBody);
+
+                    // Añadir tarjeta a la columna
+                    col.appendChild(card);
+
+                    // Añadir columna al contenedor
+                    contenedor.appendChild(col);
+                });
+
+
+                //elementboton.addEventListener('click', this.#cesta.addCesta.bind(this.#cesta, info['id']);)
+
+            }
         }
 
 
+        class Cesta {
+            #listaProductos;
+            #listaCesta;
 
+            constructor(lista) {
+                this.#listaProductos = lista;
+                this.#listaCesta = [1];
+                this.renderizarCesta();
+            }
+
+            renderizarCesta() {
+                let cesta = window.document.getElementById("cesta");
+
+                this.#listaCesta.forEach((element) => {
+
+                    // Crear la fila
+                    let fila = document.createElement("tr");
+
+                    let columnaCod = document.createElement("td");
+                    columnaCod.textContent = 1;
+
+                    let columnaNombre = document.createElement("td");
+                    columnaNombre.textContent = 1;
+
+                    let columnaPrecio = document.createElement("td");
+                    columnaPrecio.textContent = 1;
+
+                    let columnaSubtotal = document.createElement("td");
+                    columnaSubtotal.textContent = 1;
+
+                    // Botón de eliminar
+                    let columnaBoton = document.createElement("td");
+                    let botonBorrar = document.createElement("button");
+                    botonBorrar.classList.add("btn", "btn-warning");
+                    botonBorrar.textContent = "X";
+
+                    columnaBoton.appendChild(botonBorrar);
+
+                    fila.appendChild(columnaCod);
+                    fila.appendChild(columnaNombre);
+                    fila.appendChild(columnaPrecio);
+                    fila.appendChild(columnaSubtotal);
+                    fila.appendChild(boton);
+
+                    cesta.appendChild(fila);
+
+
+                });
+
+
+            }
+
+            getListaProductos() { return this.listaProductos };
+            addNewProducto() { this.listaProductos };
+            removeProducto() { this.listaProductos };
+        }
+
+        let productos = [
+            new Producto(1, "Balón de Fútbol", 29.99, "https://cdn.pixabay.com/photo/2017/09/23/11/43/football-2778583_640.jpg"),
+            new Producto(2, "Raqueta de Tenis", 89.99, "https://cdn.pixabay.com/photo/2023/04/17/10/31/tennis-7932067_640.jpg"),
+            new Producto(3, "Zapatillas Deportivas", 59.99, "https://cdn.pixabay.com/photo/2020/06/29/04/33/shoes-5351339_640.jpg"),
+            new Producto(4, "Camiseta Deportiva", 19.99, "https://media.istockphoto.com/id/934211686/es/foto/maqueta-de-t-shirt-negro-sobre-suspensi%C3%B3n-de-madera-frente-y-parte-trasera-vista.jpg?s=2048x2048&w=is&k=20&c=u3xiGQPfDyur55GGpYm0xHsLjNJfvdFJs9jbDsKplU8="),
+            new Producto(5, "Mancuernas 5kg", 34.99, "https://cdn.pixabay.com/photo/2017/04/19/18/09/dumbbell-2243146_640.jpg"),
+            new Producto(6, "Botella de Agua", 9.99, "https://cdn.pixabay.com/photo/2015/03/17/11/00/vacuum-flask-677525_640.jpg")
+        ];
+
+
+        window.onload = () => {
+            const contProductos = new ContProductos(productos);
+        };
 
     </script>
 
@@ -60,19 +202,23 @@
     <div class="row" style="margin: 30px;">
 
         <!-- Contenedor de productos -->
-        <div id="contProductos" class="col-7" style=" background-color: ghostwhite; padding: 20px;">
+        <div class="col-7" style=" background-color: ghostwhite; padding: 20px;">
+            <div class="row row-cols-1 row-cols-md-3 g-4" id="contProductos">
 
 
+
+            </div>
         </div>
 
         <!-- Contenedor de la cesta -->
-        <div class="col-5" style=" background-color: rosybrown; padding: 20px;">
+        <div class="col-5" style=" background-color: ghostwhite; padding: 20px;">
 
             <div style="display: flex; align-items: center; justify-content: flex-start; margin: 5px 0px;">
-                <img src="https://cdn.pixabay.com/photo/2013/07/12/17/22/basket-152089_1280.png" class="me-3" height="40px">
+                <img src="https://cdn.pixabay.com/photo/2013/07/12/17/22/basket-152089_1280.png" class="me-3"
+                    height="40px">
                 <h3 style="margin: 0;">Cesta</h3>
             </div>
-            
+
             <table class="table">
                 <thead>
                     <tr>
@@ -90,8 +236,8 @@
 
             <div style="text-align: right;">
                 <br>
-                <p>Total: 0.00€</p>
-                <p>Total + IVA(21%): 0.00€</p>
+                <p>Total: <em id="precioTotal">0.00</em>€</p>
+                <p>Total + IVA(21%): <em id="precioConIVA">0.00</em>€</p>
             </div>
 
         </div>
