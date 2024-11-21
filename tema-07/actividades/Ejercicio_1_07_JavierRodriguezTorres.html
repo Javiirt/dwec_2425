@@ -12,6 +12,7 @@
 
     <script>
 
+        //Clase Producto: almacena los productos disponibles 
         class Producto {
 
             #producto = {};
@@ -27,6 +28,7 @@
         }
 
 
+        //Clase ContProductos: renderiza los productos disponibles de forma dinámica
         class ContProductos {
             #array_productos;
             #cesta;
@@ -37,10 +39,13 @@
                 this.renderizar();
             }
 
+            //Método que carga los productos de forma dinámica
             renderizar() {
                 let contenedor = window.document.getElementById("contProductos");
 
+                //Itera todos los productos
                 this.#array_productos.forEach((producto) => {
+
                     // Crear la columna
                     let col = document.createElement("div");
                     col.classList.add("col");
@@ -87,7 +92,13 @@
                     let boton = document.createElement("button");
                     boton.classList.add("btn", "btn-primary");
                     boton.textContent = "Añadir";
+                    boton.setAttribute("data-idbot", producto.id); // Asociado al producto
 
+                    // Evento del botón
+                    boton.addEventListener("click", () => {
+                        let cantidad = parseInt(inputCantidad.value, 10); // Leer cantidad
+                        this.#cesta.addProducto(producto.id, cantidad);
+                    });
 
                     // Añadir elementos al cuerpo de la tarjeta
                     cardBody.appendChild(titulo);
@@ -108,68 +119,139 @@
 
 
                 //elementboton.addEventListener('click', this.#cesta.addCesta.bind(this.#cesta, info['id']);)
+                //Selecciona input cantidad y su valor coincide con el boton
+                //let cant = document.querySelector("input[data-iduni='"+idBot+"']");
 
             }
         }
 
 
+        //Clase Cesta: gestiona la cesta y genera los productos añadidos a la cesta
         class Cesta {
             #listaProductos;
             #listaCesta;
 
             constructor(lista) {
                 this.#listaProductos = lista;
-                this.#listaCesta = [1];
+                this.#listaCesta = [];
                 this.renderizarCesta();
             }
 
+            //Método que añade un producto a la cesta
+            addProducto(id, cantidad) {
+
+                // Buscar si ya existe en la cesta
+                let productoEnCesta = this.#listaCesta.find((item) => item.id === id);
+
+                if (productoEnCesta) {
+                    // Si existe, actualizar la cantidad
+                    productoEnCesta.cantidad += cantidad;
+                } else {
+                    // Si no existe, agregar nuevo producto
+                    this.#listaCesta.push({ id, cantidad });
+                }
+
+                this.renderizarCesta();
+            }
+
+
+            //Método que genera los productos en la cesta de forma dinámica
             renderizarCesta() {
                 let cesta = window.document.getElementById("cesta");
+                cesta.innerHTML = "";// Limpiar contenido previo
 
+                //Itera los productos de la cesta
                 this.#listaCesta.forEach((element) => {
+                    let producto = this.#listaProductos.find((p) => p.id === element.id);
 
                     // Crear la fila
                     let fila = document.createElement("tr");
 
+                    // Columna código
                     let columnaCod = document.createElement("td");
-                    columnaCod.textContent = 1;
+                    columnaCod.textContent = producto.id;
 
+                    // Columna nombre
                     let columnaNombre = document.createElement("td");
-                    columnaNombre.textContent = 1;
+                    columnaNombre.textContent = producto.nombre;
 
+                    // Columna cantidad
+                    let columnaCantidad = document.createElement("td");
+                    columnaCantidad.textContent = element.cantidad;
+
+                    // Columna precio
                     let columnaPrecio = document.createElement("td");
-                    columnaPrecio.textContent = 1;
+                    columnaPrecio.textContent = producto.precio.toFixed(2) + "€";
 
+                    // Columna subtotal
                     let columnaSubtotal = document.createElement("td");
-                    columnaSubtotal.textContent = 1;
+                    let subtotal = producto.precio * element.cantidad;
+                    columnaSubtotal.textContent = subtotal.toFixed(2) + "€";
 
                     // Botón de eliminar
                     let columnaBoton = document.createElement("td");
                     let botonBorrar = document.createElement("button");
-                    botonBorrar.classList.add("btn", "btn-warning");
+                    botonBorrar.classList.add("btn", "btn-danger");
                     botonBorrar.textContent = "X";
+
+                    //Evento del botón de eliminar
+                    botonBorrar.addEventListener("click", () => {
+                        this.#eliminarProducto(element.id);
+                    });
 
                     columnaBoton.appendChild(botonBorrar);
 
+                    //Añadimos las columnas a la fila
                     fila.appendChild(columnaCod);
                     fila.appendChild(columnaNombre);
+                    fila.appendChild(columnaCantidad);
                     fila.appendChild(columnaPrecio);
                     fila.appendChild(columnaSubtotal);
-                    fila.appendChild(boton);
+                    fila.appendChild(columnaBoton);
 
+                    //Añadimos la fila a la tabla de la cesta
                     cesta.appendChild(fila);
 
 
                 });
 
+                this.#calcularTotal();
 
             }
 
-            getListaProductos() { return this.listaProductos };
-            addNewProducto() { this.listaProductos };
-            removeProducto() { this.listaProductos };
+            //Método que elimina el elemento seleccionado de la cesta
+            #eliminarProducto(id) {
+                this.#listaCesta = this.#listaCesta.filter((item) => item.id !== id);
+                this.renderizarCesta();
+            }
+
+            //Método que calcula el precio total y el precio con iva de la cesta
+            #calcularTotal() {
+
+                //Variable que acumula los subtotales de todos los productos
+                let precioTotal = 0;
+
+                this.#listaCesta.forEach(productoCesta => {
+                    // Encontrar el producto correspondiente en la lista de productos
+                    let producto = this.#listaProductos.find((p) => p.id === productoCesta.id);
+
+                    precioTotal += productoCesta.cantidad * producto.precio;
+                });
+
+
+                // Calcular el total con IVA 
+                let totalConIVA = precioTotal * 1.21;
+
+                // Actualizar el total sin IVA en el elemento con id "precioTotal"
+                document.getElementById("precioTotal").textContent = precioTotal.toFixed(2); // Formatear a dos decimales
+
+                // Actualizar el total con IVA en el elemento con id "precioConIVA"
+                document.getElementById("precioConIVA").textContent = totalConIVA.toFixed(2); // Formatear a dos decimales
+            }
+
         }
 
+        //Lista de productos disponibles
         let productos = [
             new Producto(1, "Balón de Fútbol", 29.99, "https://cdn.pixabay.com/photo/2017/09/23/11/43/football-2778583_640.jpg"),
             new Producto(2, "Raqueta de Tenis", 89.99, "https://cdn.pixabay.com/photo/2023/04/17/10/31/tennis-7932067_640.jpg"),
@@ -179,10 +261,8 @@
             new Producto(6, "Botella de Agua", 9.99, "https://cdn.pixabay.com/photo/2015/03/17/11/00/vacuum-flask-677525_640.jpg")
         ];
 
-
-        window.onload = () => {
-            const contProductos = new ContProductos(productos);
-        };
+        // Necesario esperar que se carguen los elementos HTML
+        window.onload = () => contProductos = new ContProductos(productos);
 
     </script>
 
@@ -227,13 +307,16 @@
                         <th scope="col">Cantidad</th>
                         <th scope="col">Precio</th>
                         <th scope="col">Subtotal</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
+                <!-- Contenedor donde se añadirán las filas -->
                 <tbody class="table-group-divider" id="cesta">
 
                 </tbody>
             </table>
 
+            <!-- Contenedor donde se mostrarán los precios totales -->
             <div style="text-align: right;">
                 <br>
                 <p>Total: <em id="precioTotal">0.00</em>€</p>
