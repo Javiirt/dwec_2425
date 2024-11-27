@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicio 1 Tema 7</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+
+
+    <script>
+
+        //Clase Producto: almacena los productos disponibles 
+        class Producto {
+
+            #producto = {};
+
+            constructor(id, nombre, precio, imagen) {
+                this.#producto.id = id;
+                this.#producto.nombre = nombre;
+                this.#producto.precio = precio;
+                this.#producto.imagen = imagen;
+
+                return this.#producto;
+            }
+        }
+
+
+        //Clase ContProductos: renderiza los productos disponibles de forma dinámica
+        class ContProductos {
+            #array_productos;
+            #cesta;
+
+            constructor(array = []) {
+                this.#array_productos = productos;
+                this.#cesta = new Cesta(this.#array_productos);
+                this.renderizar();
+            }
+
+            getCesta() {
+                return this.#cesta;
+            }
+
+            //Método que carga los productos de forma dinámica
+            renderizar() {
+                let contenedor = window.document.getElementById("contProductos");
+
+                //Itera todos los productos
+                this.#array_productos.forEach((producto) => {
+
+                    // Crear la columna
+                    let col = document.createElement("div");
+                    col.classList.add("col");
+
+                    // Crear la tarjeta
+                    let card = document.createElement("div");
+                    card.classList.add("card", "h-100");
+
+                    // Imagen del producto
+                    let imagen = document.createElement("img");
+                    imagen.classList.add("card-img-top");
+                    imagen.src = producto.imagen;
+                    imagen.alt = producto.nombre;
+                    imagen.style.height = "200px";
+                    imagen.style.width = "100%";
+                    imagen.style.objectFit = "cover";
+
+                    // Cuerpo de la tarjeta
+                    let cardBody = document.createElement("div");
+                    cardBody.classList.add("card-body", "text-center");
+
+                    // Título del producto
+                    let titulo = document.createElement("h5");
+                    titulo.textContent = producto.nombre;
+
+                    // Precio del producto
+                    let precio = document.createElement("p");
+                    precio.classList.add("card-text");
+                    precio.textContent = producto.precio + '€';
+
+                    // Campo de cantidad
+                    let inputGroup = document.createElement("div");
+                    inputGroup.classList.add("input-group", "mb-3");
+
+                    let inputCantidad = document.createElement("input");
+                    inputCantidad.type = "number";
+                    inputCantidad.classList.add("form-control");
+                    inputCantidad.value = 1;
+                    inputCantidad.min = 1;
+
+                    inputGroup.appendChild(inputCantidad);
+
+                    // Botón de añadir
+                    let boton = document.createElement("button");
+                    boton.classList.add("btn", "btn-primary");
+                    boton.textContent = "Añadir";
+                    boton.setAttribute("data-idbot", producto.id); // Asociado al producto
+
+                    // Evento del botón
+                    boton.addEventListener("click", () => {
+                        let cantidad = parseInt(inputCantidad.value, 10); // Leer cantidad
+                        this.#cesta.addProducto(producto.id, cantidad);
+                    });
+
+                    // Añadir elementos al cuerpo de la tarjeta
+                    cardBody.appendChild(titulo);
+                    cardBody.appendChild(precio);
+                    cardBody.appendChild(inputGroup);
+                    cardBody.appendChild(boton);
+
+                    // Añadir imagen y cuerpo a la tarjeta
+                    card.appendChild(imagen);
+                    card.appendChild(cardBody);
+
+                    // Añadir tarjeta a la columna
+                    col.appendChild(card);
+
+                    // Añadir columna al contenedor
+                    contenedor.appendChild(col);
+                });
+
+
+                //elementboton.addEventListener('click', this.#cesta.addCesta.bind(this.#cesta, info['id']);)
+                //Selecciona input cantidad y su valor coincide con el boton
+                //let cant = document.querySelector("input[data-iduni='"+idBot+"']");
+
+            }
+        }
+
+        //Clase ItemCesta: gestiona un item de la cesta 
+        class ItemCesta {
+            #idProducto;
+            #nombre;
+            #cantidad;
+            #precio;
+
+            constructor(idProducto, nombre, cantidad, precio) {
+                this.#idProducto = idProducto;
+                this.#nombre = nombre;
+                this.#cantidad = cantidad;
+                this.#precio = precio;
+            }
+
+            //Devuelve la fila de la cesta
+            getFila() {
+                // Crear la fila
+                let fila = document.createElement("tr");
+
+                // Columna código
+                let columnaCod = document.createElement("td");
+                columnaCod.textContent = this.#idProducto;
+
+                // Columna nombre
+                let columnaNombre = document.createElement("td");
+                columnaNombre.textContent = this.#nombre;
+
+                // Columna cantidad
+                let columnaCantidad = document.createElement("td");
+                columnaCantidad.textContent = this.#cantidad;
+
+                // Columna precio
+                let columnaPrecio = document.createElement("td");
+                columnaPrecio.textContent = this.#precio.toFixed(2) + "€";
+
+                // Columna subtotal
+                let columnaSubtotal = document.createElement("td");
+                let subtotal = this.#precio * this.#cantidad;
+                columnaSubtotal.textContent = subtotal.toFixed(2) + "€";
+
+                // Botón de eliminar
+                let columnaBoton = document.createElement("td");
+                let botonBorrar = document.createElement("button");
+                botonBorrar.classList.add("btn", "btn-danger");
+                botonBorrar.textContent = "X";
+
+                //Evento del botón de eliminar
+                botonBorrar.addEventListener("click", () => {
+                    window.contProductos.getCesta().eliminarProducto(this.#idProducto);
+                });
+
+                columnaBoton.appendChild(botonBorrar);
+
+                //Añadimos las columnas a la fila
+                fila.appendChild(columnaCod);
+                fila.appendChild(columnaNombre);
+                fila.appendChild(columnaCantidad);
+                fila.appendChild(columnaPrecio);
+                fila.appendChild(columnaSubtotal);
+                fila.appendChild(columnaBoton);
+
+                //Devolvemos la fila 
+                return fila;
+            }
+
+
+
+
+        }
+
+
+        //Clase Cesta: gestiona la cesta y genera los productos añadidos a la cesta
+        class Cesta {
+            #listaProductos;
+            #listaCesta;
+
+            constructor(lista) {
+                this.#listaProductos = lista;
+                this.#listaCesta = [];
+                this.renderizarCesta();
+            }
+
+            //Método que añade un producto a la cesta
+            addProducto(id, cantidad) {
+
+                // Buscar si ya existe en la cesta
+                let productoEnCesta = this.#listaCesta.find((item) => item.id === id);
+
+                if (productoEnCesta) {
+                    // Si existe, actualizar la cantidad
+                    productoEnCesta.cantidad += cantidad;
+                } else {
+                    // Si no existe, agregar nuevo producto
+                    this.#listaCesta.push({ id, cantidad });
+                }
+
+                this.renderizarCesta();
+            }
+
+
+            //Método que genera los productos en la cesta de forma dinámica
+            renderizarCesta() {
+                let cesta = window.document.getElementById("cesta");
+                cesta.innerHTML = "";// Limpiar contenido previo
+
+                //Itera los productos de la cesta
+                this.#listaCesta.forEach((element) => {
+                    let producto = this.#listaProductos.find((p) => p.id === element.id);
+
+                    //Creamos un objetoItemCesta
+                    let item = new ItemCesta(producto.id, producto.nombre, element.cantidad, producto.precio);
+
+                    //Añadimos la fila generada por el objeto ItemCesta a la tabla de la cesta
+                    cesta.appendChild(item.getFila());
+
+                });
+
+                this.#calcularTotal();
+
+            }
+
+            //Método que elimina el elemento seleccionado de la cesta
+            eliminarProducto(id) {
+                this.#listaCesta = this.#listaCesta.filter((item) => item.id !== id);
+                this.renderizarCesta();
+            }
+
+            //Método que calcula el precio total y el precio con iva de la cesta
+            #calcularTotal() {
+
+                //Variable que acumula los subtotales de todos los productos
+                let precioTotal = 0;
+
+                this.#listaCesta.forEach(productoCesta => {
+                    // Encontrar el producto correspondiente en la lista de productos
+                    let producto = this.#listaProductos.find((p) => p.id === productoCesta.id);
+
+                    precioTotal += productoCesta.cantidad * producto.precio;
+                });
+
+
+                // Calcular el total con IVA 
+                let totalConIVA = precioTotal * 1.21;
+
+                // Actualizar el total sin IVA en el elemento con id "precioTotal"
+                document.getElementById("precioTotal").textContent = precioTotal.toFixed(2); // Formatear a dos decimales
+
+                // Actualizar el total con IVA en el elemento con id "precioConIVA"
+                document.getElementById("precioConIVA").textContent = totalConIVA.toFixed(2); // Formatear a dos decimales
+            }
+
+        }
+
+        //Lista de productos disponibles
+        let productos = [
+            new Producto(1, "Balón de Fútbol", 29.99, "https://cdn.pixabay.com/photo/2017/09/23/11/43/football-2778583_640.jpg"),
+            new Producto(2, "Raqueta de Tenis", 89.99, "https://cdn.pixabay.com/photo/2023/04/17/10/31/tennis-7932067_640.jpg"),
+            new Producto(3, "Zapatillas Deportivas", 59.99, "https://cdn.pixabay.com/photo/2020/06/29/04/33/shoes-5351339_640.jpg"),
+            new Producto(4, "Camiseta Deportiva", 19.99, "https://media.istockphoto.com/id/934211686/es/foto/maqueta-de-t-shirt-negro-sobre-suspensi%C3%B3n-de-madera-frente-y-parte-trasera-vista.jpg?s=2048x2048&w=is&k=20&c=u3xiGQPfDyur55GGpYm0xHsLjNJfvdFJs9jbDsKplU8="),
+            new Producto(5, "Mancuernas 5kg", 34.99, "https://cdn.pixabay.com/photo/2017/04/19/18/09/dumbbell-2243146_640.jpg"),
+            new Producto(6, "Botella de Agua", 9.99, "https://cdn.pixabay.com/photo/2015/03/17/11/00/vacuum-flask-677525_640.jpg")
+        ];
+
+        // Necesario esperar que se carguen los elementos HTML
+        window.onload = () => contProductos = new ContProductos(productos);
+
+    </script>
+
+
+
+</head>
+
+<body>
+
+    <!-- Cabecera -->
+    <header class="d-flex align-items-center p-3" style="background-color: rgb(233, 233, 233); margin: 10px 30px">
+        <img src="https://cdn.pixabay.com/photo/2017/06/25/20/14/logo-2441841_640.png" class="me-3" height="40px">
+        <h1 class="m-0">SportTracker</h1>
+    </header>
+
+    <!-- Cuerpo de la página -->
+    <div class="row" style="margin: 30px;">
+
+        <!-- Contenedor de productos -->
+        <div class="col-7" style=" background-color: ghostwhite; padding: 20px;">
+            <div class="row row-cols-1 row-cols-md-3 g-4" id="contProductos">
+
+
+
+            </div>
+        </div>
+
+        <!-- Contenedor de la cesta -->
+        <div class="col-5" style=" background-color: ghostwhite; padding: 20px;">
+
+            <div style="display: flex; align-items: center; justify-content: flex-start; margin: 5px 0px;">
+                <img src="https://cdn.pixabay.com/photo/2013/07/12/17/22/basket-152089_1280.png" class="me-3"
+                    height="40px">
+                <h3 style="margin: 0;">Cesta</h3>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Cod.</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Subtotal</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <!-- Contenedor donde se añadirán las filas -->
+                <tbody class="table-group-divider" id="cesta">
+
+                </tbody>
+            </table>
+
+            <!-- Contenedor donde se mostrarán los precios totales -->
+            <div style="text-align: right;">
+                <br>
+                <p>Total: <em id="precioTotal">0.00</em>€</p>
+                <p>Total + IVA(21%): <em id="precioConIVA">0.00</em>€</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
