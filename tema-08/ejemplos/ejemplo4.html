@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>XML Parsing Example</title>
+</head>
+
+<body>
+    <script>
+        let cadena = `<?xml version="1.0" encoding="UTF-8"?>
+                        <cine>
+                            <pelicula categoria="accion">
+                                <titulo idioma="ingles">Mad Max</titulo>
+                                <director>George Miller</director>
+                                <estreno>15 mayo 2015</estreno>
+                                <reparto>Charlize Theron</reparto>
+                            </pelicula>
+                            <pelicula categoria="animacion">
+                                <titulo idioma="ingles">Inside Out</titulo>
+                                <reparto>Amy Poehler</reparto>
+                            </pelicula>
+                        </cine>
+        `;
+
+        // Crear el DOMParser e interpretar la cadena XML
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(cadena, "text/xml");
+
+        // Obtener todas las películas
+        var peliculas = xmlDoc.getElementsByTagName('pelicula');
+        var txt = "";
+
+        // Iterar por cada película
+        for (let i of peliculas) {
+            // Obtener el título
+            txt += i.getElementsByTagName('titulo')[0].childNodes[0].nodeValue +"\n";
+
+            // Obtener todos los repartos
+            let repartos = i.getElementsByTagName('reparto');
+            for (let y of repartos) {
+                txt += y.childNodes[0].nodeValue +"\n";
+            }
+        }
+
+        // Mostrar los resultados en un alert
+        alert(txt);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <h2>Recibe datos en JSON desde un servidor por PHP con AJAX.</h2>
+  <p id="demo"></p>
+  <script>
+
+    // Guardar datos 
+    var objJS = { alumno: "Juan", curso: 2 };
+    var cadenaJSON = JSON.stringify(objJS);
+    localStorage.setItem("datos", cadenaJSON);
+
+    // Recuperar datos
+    var datos = localStorage.getItem("datos");
+    obj = JSON.parse(datos);
+    alert(obj.alumno); // Muestra “Juan”
+
+  </script>
+</body>
+
+</html>
