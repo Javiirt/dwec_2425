@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://192.168.80.105/dwec/examen2_1Eva_24_25_plantilla.html -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <style>
+        .centra {
+            border: 1px solid grey;
+            text-align: center;
+        }
+
+        .borde {
+            border: 1px solid grey;
+        }
+
+        .cambio {
+            border: 2px solid blue;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <script>
+
+        // Cadena 'bdDallo', contiene todos los costes en euros (materiales, mano de obra, etc...)
+        //  para realizar el escandallo de una serie de carteras de piel recibido desde una BBDD.
+
+        var bdDallo = `[{ "id": 1,
+                        "nombre": "cartera piel vacuno negra",
+                        "costes":{ "piel": 5,
+                                   "hilo": 0.80,
+                                   "rebaje": 1,
+                                   "pegamento": 0.50,
+                                   "pintura": 0.45,
+                                   "broches": 0.90,
+                                   "cosido": 1,
+                                   "fabricación": 15,
+                                   "embasado": 1}                
+                   },
+                   {    "id": 2,
+                        "nombre": "cartera piel vacuno azul",
+                        "costes":{ "piel": 6,
+                                   "hilo": 0.90,
+                                   "rebaje": 1.50,
+                                   "pegamento": 0.70,
+                                   "pintura": 0.50,
+                                   "broches": 0.80,
+                                   "cosido": 1.50,
+                                   "fabricación": 16,
+                                   "embasado": 1.20}                
+                   },
+                   {    "id": 3,
+                        "nombre": "cartera piel coco",
+                        "costes":{ "piel": 25,
+                                   "hilo": 1,
+                                   "rebaje": 1,
+                                   "pegamento": 0.70,
+                                   "pintura": 0.80,
+                                   "broches": 1,
+                                   "cosido": 3,
+                                   "fabricación": 20,
+                                   "embasado": 5}               
+                   }]`
+
+
+        //Clase ItemCesta: gestiona un item de la cesta 
+        class Secc {
+            #cartera;
+
+            constructor(objeto) {
+                this.#cartera = objeto;
+            }
+
+            //Método estático que devuelve la cabecera de la tabla
+            static getCabecera() {
+                // Crear la fila
+                let fila = document.createElement("tr");
+
+                // Columna id
+                let columnaId = document.createElement("td");
+                columnaId.classList.add("centra");
+                columnaId.textContent = "ID";
+
+                // Columna nombre
+                let columnaNombre = document.createElement("td");
+                columnaNombre.classList.add("centra");
+                columnaNombre.textContent = "NOMBRE";
+
+                // Columna coste
+                let columnaCoste = document.createElement("td");
+                columnaCoste.classList.add("centra");
+                columnaCoste.textContent = "COSTE €";
+
+                //Asignamos las columnas a las fila
+                fila.appendChild(columnaId);
+                fila.appendChild(columnaNombre);
+                fila.appendChild(columnaCoste);
+
+                return fila;
+
+            }
+
+            //Método que devuelve el modelo de una cartera
+            getModelo() {
+                // Crear la fila
+                let fila = document.createElement("tr");
+
+                // Columna id
+                let columnaId = document.createElement("td");
+                columnaId.classList.add("centra");
+                columnaId.textContent = this.#cartera.id;
+
+                // Columna nombre
+                let columnaNombre = document.createElement("td");
+                let bold = document.createElement("b");
+                columnaNombre.classList.add("centra");
+                bold.textContent = this.#cartera.nombre;
+                columnaNombre.appendChild(bold);
+
+                // Columna coste
+                let columnaCoste = document.createElement("td");
+                columnaCoste.classList.add("centra");
+
+                //Asignamos las columnas a las fila
+                fila.appendChild(columnaId);
+                fila.appendChild(columnaNombre);
+                fila.appendChild(columnaCoste);
+
+                return fila;
+            }
+
+            //Método que devuelve el modelo de una cartera
+            getCostes() {
+                let lista = [];
+
+                for (let x in (this.#cartera.costes)) {
+
+                    // Crear la fila
+                    let fila = document.createElement("tr");
+
+                    // Columna id
+                    let columnaId = document.createElement("td");
+                    columnaId.classList.add("centra");
+
+                    // Columna nombre
+                    let columnaNombre = document.createElement("td");
+                    columnaNombre.classList.add("centra");
+                    columnaNombre.textContent = x;
+
+                    //Evento
+                    columnaNombre.addEventListener("mouseenter", () => {
+                        columnaNombre.classList.add("cambio");
+                    });
+
+                    //Evento
+                    columnaNombre.addEventListener("mouseleave", () => {
+                        columnaNombre.classList.remove("cambio");
+                        columnaNombre.classList.add("centra");
+                    });
+
+                    // Columna precio
+                    let columnaPrecio = document.createElement("td");
+                    columnaPrecio.classList.add("centra");
+                    columnaPrecio.textContent = this.#cartera.costes[x];
+
+                    fila.appendChild(columnaId);
+                    fila.appendChild(columnaNombre);
+                    fila.appendChild(columnaPrecio);
+
+                    lista.push(fila);
+                }
+
+
+                return lista;
+            }
+
+            //Método que devuelve el modelo de una cartera
+            getTotal() {
+                let precio = 0;
+
+                for (let x in (this.#cartera.costes)) {
+                    precio += parseFloat(this.#cartera.costes[x]);                    
+                }
+
+                // Crear la fila
+                let fila = document.createElement("tr");
+
+                // Columna id
+                let columnaId = document.createElement("td");
+                columnaId.classList.add("centra");
+
+                // Columna nombre
+                let columnaNombre = document.createElement("td");
+                columnaNombre.classList.add("centra");
+                let bold1 = document.createElement("b");
+                bold1.textContent = "TOTAL";
+                columnaNombre.appendChild(bold1);
+
+                // Columna coste
+                let columnaCoste = document.createElement("td");
+                columnaCoste.classList.add("centra");
+                let bold2 = document.createElement("b");
+                bold2.textContent = precio.toFixed(2);
+                columnaCoste.appendChild(bold2);
+
+                //Asignamos las columnas a las fila
+                fila.appendChild(columnaId);
+                fila.appendChild(columnaNombre);
+                fila.appendChild(columnaCoste);
+
+                return fila;
+            }
+
+
+        }
+
+        //Clase Tabla: renderiza las carteras disponibles de forma dinámica
+        class Tabla {
+            #listaObjetos;
+
+            constructor(cadenaJSON) {
+                this.#listaObjetos = JSON.parse(cadenaJSON);
+                this.renderizar();
+            }
+
+
+            //Método que carga los carteras de forma dinámica
+            renderizar() {
+
+                //Creación de la tabla
+                let tabla = document.createElement("table");
+
+
+                //Asignamos la cebecera
+                tabla.appendChild(Secc.getCabecera());
+
+
+                //Recorremos la lista de objetos
+                this.#listaObjetos.forEach(objeto => {
+                    let secc = new Secc(objeto);
+                    tabla.appendChild(secc.getModelo());
+
+                    secc.getCostes().forEach(filaCoste => {
+                        tabla.appendChild(filaCoste);
+                    });
+
+                    tabla.appendChild(secc.getTotal());
+                });
+
+                //contenedor.appendChild(tabla);
+                document.body.appendChild(tabla);
+
+            }
+        }
+
+
+        // Necesario esperar que se carguen los elementos HTML
+        window.onload = () => objTabla = new Tabla(bdDallo);
+
+    </script>
+
+</body>
+
+</html>
