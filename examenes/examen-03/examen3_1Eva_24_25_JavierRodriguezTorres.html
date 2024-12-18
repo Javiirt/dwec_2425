@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script>
+
+
+        //Clase Pregunta: gestiona una pregunta 
+        class Pregunta {
+            #pregunta;
+            #respuestaCorrecta;
+            #numeroPregunta;
+
+            constructor(pregunta, respuestaCorrecta, numeroPregunta) {
+                this.#pregunta = pregunta;
+                this.#respuestaCorrecta = respuestaCorrecta;
+                this.#numeroPregunta = numeroPregunta;
+            }
+
+            //Método que va a retornar un contenedor con los elementos agrupados por cada pregunta
+            pregHTML() {
+
+                let opciones = ["a", "b", "c"];
+
+                // Crear contenedor
+                let contenedor = document.createElement("div");
+
+                // Titulo de la pregunta
+                let enunciado = document.createElement("h3");
+                enunciado.textContent = this.#pregunta;
+                enunciado.addEventListener('click', () => this.#colorChange(enunciado));
+                contenedor.appendChild(enunciado);
+
+                // Respuestas posibles
+                opciones.forEach(element => {
+                    // Valor de la respuesta
+                    let respuestaPosible = document.createElement("label");
+                    respuestaPosible.textContent = element;
+
+                    //Genermos el radiobutton
+                    let checkRespuesta = document.createElement("input");
+                    checkRespuesta.type = "radio";
+                    checkRespuesta.name = "respuesta" + (this.#numeroPregunta);
+
+                    //Seleccionamos en caso de ser correcta
+                    if (element == this.#respuestaCorrecta) {
+                        checkRespuesta.checked = "true";
+                    }
+
+                    //Añadimos elementos al contenedor
+                    contenedor.appendChild(respuestaPosible);
+                    contenedor.appendChild(checkRespuesta);
+                });
+
+                //Devolvemos el contenedor
+                return contenedor;
+
+            }
+
+            // Método para cambiar el color del enunciado
+            #colorChange(elemento) {
+                if (elemento.style.color === 'blue') {
+                    elemento.style.color = '';
+                } else {
+                    elemento.style.color = 'blue';
+                }
+            }
+
+
+        }
+
+        //Clase Main
+        class Main {
+
+            #archivoJson;
+
+            constructor(archivoJson) {
+                this.#archivoJson = archivoJson;
+                this.#readJSON();
+            }
+
+
+            //Método que carga los preguntas de forma dinámica
+            #readJSON() {
+
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+
+                        //Obtenemos los datos del JSON
+                        let obj = JSON.parse(this.responseText);
+
+                        //Iteramos preguntas
+                        document.body.innerHTML = "";
+                        for (let index = 0; index < obj.length; index++) {
+                            //Creamos una pregunta y añadimos al body
+                            let pregunta = new Pregunta(obj[index].enunciado, obj[index].respuesta, (index + 1));
+                            document.body.appendChild(pregunta.pregHTML());
+                        }
+
+                    }
+                }
+                xhttp.open("GET", this.#archivoJson, true);
+                xhttp.send();
+
+            }
+        }
+
+
+        // Necesario esperar que se carguen los elementos HTML
+        new Main("Examen3_1Eva_24_25.json");
+
+    </script>
+</head>
+
+<body></body>
+
+</html>
