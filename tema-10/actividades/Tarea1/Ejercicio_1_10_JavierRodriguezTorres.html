@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<meta charset="UTF-8">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicio 1 Tema 8</title>
+
+    <script>
+        // --- FORMA 1: Usando Fetch con Promesas ---
+        /*
+        function funFetch(url, fun) {
+            fetch(url) // Realiza la petición
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Error en la respuesta del servidor");
+                    }
+                    return response.json(); // Convierte la respuesta en JSON
+                })
+                .then(data => fun(data)) // Llama a la función pasada como argumento con los datos
+                .catch(error => console.error("Error en fetch:", error)); // Manejo de errores
+        }
+        */
+
+        // --- FORMA 2: Usando Fetch con Async/Await ---
+        async function funFetchAsync(url, fun) {
+            try {
+                const response = await fetch(url); // Realiza la petición
+                if (!response.ok) {
+                    throw new Error("Error en la respuesta del servidor");
+                }
+                const data = await response.json(); // Convierte la respuesta en JSON
+                fun(data); // Llama a la función pasada como argumento con los datos
+            } catch (error) {
+                console.error("Error en fetch:", error); // Manejo de errores
+            }
+        }
+
+        // Carga y crea un <select> dinámico a partir del objeto recibido
+        function cargarSelect(obj) {
+            let select = document.createElement("select"); // Crea el elemento <select>
+            let option = document.createElement("option"); // Crea la opción predeterminada
+            option.textContent = "Selecciona una opcion";
+            option.disabled = true;
+            option.selected = true;
+            select.appendChild(option); // Añade la opción al <select>
+
+            obj.forEach(element => {
+                let option = document.createElement("option");
+                option.textContent = element['nombre'];
+                option.value = element['id'];
+                select.appendChild(option);
+            });
+
+            select.addEventListener("change", function () {
+                // Llama a la función Fetch con Async/Await
+                funFetchAsync(`Ejercicio_1_10_JavierRodriguezTorres.php?id=${select.value}`, cargarTabla);
+
+                // Si se desea usar la forma con promesas, descomentar la siguiente línea:
+                // funFetch(`Ejercicio_1_10_JavierRodriguezTorres.php?id=${select.value}`, cargarTabla);
+            });
+
+            document.body.appendChild(select);
+
+            let div = document.createElement("div");
+            div.id = "contenedorTabla";
+
+            document.body.appendChild(div);
+        }
+
+        // Carga una tabla con los datos del elemento seleccionado
+        function cargarTabla(dato) {
+            let tabla = `
+                <table border="1">
+                    <tr>
+                        <td><b>ID</b></td>
+                        <td>${dato[0].id}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Nombre</b></td>
+                        <td>${dato[0].nombre}</td>
+                    </tr>    
+                    <tr>
+                        <td><b>Apellidos</b></td>
+                        <td>${dato[0].apellidos}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Ciudad</b></td>
+                        <td>${dato[0].ciudad}</td>
+                    </tr>
+                </table>
+            `;
+
+            let contenedor = window.document.getElementById("contenedorTabla");
+            contenedor.innerHTML = tabla;
+        }
+
+        // Ejecuta la función Fetch al cargar la página
+        window.onload = () => {
+            // Llama a la función Fetch con Async/Await
+            funFetchAsync('Ejercicio_1_10_JavierRodriguezTorres.php', cargarSelect);
+
+            // Si se desea usar la forma con promesas, descomentar la siguiente línea:
+            // funFetch('Ejercicio_1_10_JavierRodriguezTorres.php', cargarSelect);
+        };
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+
+
