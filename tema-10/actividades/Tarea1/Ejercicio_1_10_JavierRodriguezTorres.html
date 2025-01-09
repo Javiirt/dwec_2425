@@ -4,10 +4,10 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ejercicio 1 Tema 8</title>
+    <title>Ejercicio 1 Tema 10</title>
 
     <script>
-        // --- FORMA 1: Usando Fetch con Promesas ---
+        //  FORMA 1: Usando Fetch con Promesas
         /*
         function funFetch(url, fun) {
             fetch(url) // Realiza la petición
@@ -19,10 +19,11 @@
                 })
                 .then(data => fun(data)) // Llama a la función pasada como argumento con los datos
                 .catch(error => console.error("Error en fetch:", error)); // Manejo de errores
-        }
-        */
+        }*/
+        
 
-        // --- FORMA 2: Usando Fetch con Async/Await ---
+        //  FORMA 2: Usando Fetch con Async/Await 
+        
         async function funFetchAsync(url, fun) {
             try {
                 const response = await fetch(url); // Realiza la petición
@@ -53,11 +54,15 @@
             });
 
             select.addEventListener("change", function () {
+
+                // Llama a la función Fetch con Promesas
+                // funFetch(`Ejercicio_1_10_JavierRodriguezTorres.php?id=${select.value}`, cargarTabla);
+
+
                 // Llama a la función Fetch con Async/Await
                 funFetchAsync(`Ejercicio_1_10_JavierRodriguezTorres.php?id=${select.value}`, cargarTabla);
 
-                // Si se desea usar la forma con promesas, descomentar la siguiente línea:
-                // funFetch(`Ejercicio_1_10_JavierRodriguezTorres.php?id=${select.value}`, cargarTabla);
+                
             });
 
             document.body.appendChild(select);
@@ -97,11 +102,15 @@
 
         // Ejecuta la función Fetch al cargar la página
         window.onload = () => {
+
+            // Llama a la función Fetch con Promesas
+            // funFetch('Ejercicio_1_10_JavierRodriguezTorres.php', cargarSelect);
+
+
             // Llama a la función Fetch con Async/Await
             funFetchAsync('Ejercicio_1_10_JavierRodriguezTorres.php', cargarSelect);
 
-            // Si se desea usar la forma con promesas, descomentar la siguiente línea:
-            // funFetch('Ejercicio_1_10_JavierRodriguezTorres.php', cargarSelect);
+            
         };
 
     </script>
