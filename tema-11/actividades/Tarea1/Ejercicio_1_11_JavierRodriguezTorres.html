@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<meta charset="UTF-8">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicio 1 Tema 11</title>
+    <!-- Incluimos la librería de jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Función para realizar una solicitud AJAX y manejar la respuesta
+            function funAjax(url, callback) {
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        callback(response); // Llama a la función de manejo con los datos recibidos
+                    },
+                    error: function (error) {
+                        console.error("Error en la petición:", error);
+                    }
+                });
+            }
+
+            // Carga y crea un <select> dinámico a partir del objeto recibido
+            function cargarSelect(data) {
+                let $select = $("<select>"); // Crea el elemento <select> con jQuery
+                let $defaultOption = $("<option>").text("Selecciona una opcion").prop("disabled", true).prop("selected", true);
+
+                $select.append($defaultOption); // Añade la opción predeterminada
+
+                // Itera sobre los datos para crear las opciones del <select>
+                $.each(data, function (index, item) {
+                    let $option = $("<option>").text(item.nombre).val(item.id); // Crea una opción con texto y valor
+                    $select.append($option); // Añade la opción al <select>
+                });
+
+                // Evento para cargar la tabla al cambiar la selección
+                $select.on("change", function () {
+                    let idSeleccionado = $(this).val(); // Obtiene el valor seleccionado
+                    funAjax(`Ejercicio_1_11_JavierRodriguezTorres.php?id=${idSeleccionado}`, cargarTabla);
+                });
+
+                $("body").append($select); // Añade el <select> al <body>
+                $("body").append($("<div>").attr("id", "contenedorTabla")); // Crea y añade el contenedor para la tabla
+            }
+
+            // Carga una tabla con los datos del elemento seleccionado
+            function cargarTabla(data) {
+                let $tabla = $("<table>").attr("border", 1); // Crea la tabla con borde
+
+                // Añade filas con los datos
+                $tabla.append($("<tr>").append($("<td>").html("<b>ID</b>")).append($("<td>").text(data[0].id)));
+                $tabla.append($("<tr>").append($("<td>").html("<b>Nombre</b>")).append($("<td>").text(data[0].nombre)));
+                $tabla.append($("<tr>").append($("<td>").html("<b>Apellidos</b>")).append($("<td>").text(data[0].apellidos)));
+                $tabla.append($("<tr>").append($("<td>").html("<b>Ciudad</b>")).append($("<td>").text(data[0].ciudad)));
+
+                $("#contenedorTabla").empty().append($tabla); // Reemplaza el contenido del contenedor con la tabla
+            }
+
+            // Ejecuta la función AJAX al cargar la página
+            funAjax('Ejercicio_1_11_JavierRodriguezTorres.php', cargarSelect);
+        });
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
