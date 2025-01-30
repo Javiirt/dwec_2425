@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "mongodb": "^6.12.0",
+    "mysql": "^2.18.1"
+  },
+  "name": "ejemplo8",
+  "version": "1.0.0",
+  "main": "creaTabla_ES6_Module.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
