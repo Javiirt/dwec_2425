@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea 1</title>
+    <script type="module">
+        // Código JavaScript para manejar el botón y hacer la solicitud AJAX
+        document.getElementById('btn').addEventListener('click', () => {
+            // Realizar una petición AJAX usando Fetch API (con promesas)
+            fetch('http://localhost:3000/pagAjax')
+                .then(response => response.json())
+                .then(data => {
+                    // Mostrar el resultado en el contenedor
+                    document.getElementById('resultado').innerText = `Hola ${data.NOMBRE}`;
+                })
+                .catch(error => console.error('Error en la solicitud AJAX:', error));
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Index.html leído</h1>
+    <button id="btn">Pulsar</button>
+    <div id="resultado"></div>
+
+</body>
+
+</html>
