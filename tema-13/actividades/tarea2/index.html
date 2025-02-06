@@ -6,25 +6,38 @@
     <title>MongoDB con Node.js</title>
 </head>
 <body>
-    <h2>Lista de Usuarios</h2>
-    <ul id="listaUsuarios"></ul>
-
     <h2>Añadir Usuario</h2>
     <input type="text" id="nombre" placeholder="Nombre">
     <input type="text" id="apellido" placeholder="Apellido">
     <button onclick="agregarUsuario()">Añadir</button>
 
+    <h2>Lista de Usuarios</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+            </tr>
+        </thead>
+        <tbody id="tablaUsuarios"></tbody>
+    </table>
+
     <script>
         async function cargarUsuarios() {
             const respuesta = await fetch("http://localhost:3000/usuarios");
             const usuarios = await respuesta.json();
-            document.getElementById("listaUsuarios").innerHTML = 
-                usuarios.map(u => `<li>${u.nombre} ${u.apellido}</li>`).join("");
+            document.getElementById("tablaUsuarios").innerHTML = 
+                usuarios.map(u => `<tr><td>${u.nombre}</td><td>${u.apellido}</td></tr>`).join("");
         }
 
         async function agregarUsuario() {
             const nombre = document.getElementById("nombre").value;
             const apellido = document.getElementById("apellido").value;
+
+            if (!nombre || !apellido) {
+                alert("Por favor, complete ambos campos.");
+                return;
+            }
 
             const respuesta = await fetch("http://localhost:3000/usuarios", {
                 method: "POST",
@@ -33,7 +46,9 @@
             });
 
             if (respuesta.ok) {
-                cargarUsuarios(); // Refrescar la lista
+                document.getElementById("nombre").value = "";
+                document.getElementById("apellido").value = "";
+                cargarUsuarios(); // Refrescar la tabla
             } else {
                 alert("Error al añadir usuario");
             }
