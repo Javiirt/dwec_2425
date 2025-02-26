@@ -1,0 +1,15 @@
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .contact-form mat-form-field {
+    width: 100%;
+  }
+  
+  .contact-form button {
+    align-self: flex-end;
+  }

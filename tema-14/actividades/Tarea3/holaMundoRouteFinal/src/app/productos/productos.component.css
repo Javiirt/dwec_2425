@@ -1,0 +1,5 @@
+.product-image {
+    width: 200px; /* Ajusta el ancho según tus necesidades */
+    height: 200px; /* Ajusta la altura según tus necesidades */
+    object-fit: cover; /* Ajusta la imagen para que se recorte si es necesario */
+  }

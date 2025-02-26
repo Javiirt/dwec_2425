@@ -1,0 +1,21 @@
+<h2>Productos</h2>
+
+<!-- Angular Material Grid and Cards for Product Listings -->
+<div class="product-grid">
+  <mat-grid-list cols="3" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let product of products">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ product.name }}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="product.image" alt="{{ product.name }}" class="product-image">
+        <mat-card-content>
+          <p>{{ product.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>Buy Now</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
