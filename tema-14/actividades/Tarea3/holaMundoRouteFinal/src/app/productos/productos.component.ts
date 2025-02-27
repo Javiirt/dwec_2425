@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
 })
 export class ProductosComponent {
   products = [
-    { name: 'Pelota de futbol', description: 'Pelota de futbol', image: '/images/futbol.png' },
-    { name: 'Pelota de basket', description: 'Pelota de basket', image: '/images/basket.png' },
-    { name: 'Pelota de beisbol', description: 'Pelota de beisbol', image: '/images/beisbol.png' }
+    { name: 'Pelota de futbol', description: 'Pelota de futbol', image: './imagenes/futbol.png' },
+    { name: 'Pelota de basket', description: 'Pelota de basket', image: './imagenes/basket.png' },
+    { name: 'Pelota de beisbol', description: 'Pelota de beisbol', image: './imagenes/beisbol.png' }
   ];
 }
